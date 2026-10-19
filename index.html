@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Languagly — your language buddy, always</title>
+<meta name="description" content="A Mac menu-bar app that translates Thai ↔ English and proofreads your English, on your Mac and offline — and turns every word you look up into practice.">
+<meta name="theme-color" content="#1554e8">
+<meta property="og:title" content="Languagly — your language buddy, always">
+<meta property="og:description" content="Translate Thai ↔ English and proofread your English from the Mac menu bar. On the device, offline, and measured.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://learn57130.github.io/languagly-site/">
+<meta property="og:image" content="https://learn57130.github.io/languagly-site/apple-touch-icon.png">
+<link rel="canonical" href="https://learn57130.github.io/languagly-site/">
+<meta name="twitter:card" content="summary">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky-top: #3d8bff;
+  --sky-bottom: #1554e8;
+  --sun: #ffd84d;
+  --sun-deep: #ffc21a;
+  --cheek: #ff8a9b;
+  --ink: #13254f;
+  --ink-soft: #3a4a72;
+  --ink-faint: #6b7896;
+  --paper: #f5f8ff;
+  --paper-2: #eaf1ff;
+  --card: #ffffff;
+  --line: #d6e1f7;
+  --grid: rgba(21, 84, 232, .07);
+  --blue: #1554e8;
+  --blue-soft: #e3edff;
+  --red-soft: #ffe3e7;
+  --red-ink: #b4233c;
+  --green-soft: #ddf6e8;
+  --green-ink: #12784a;
+  --shadow: 0 1px 2px rgba(19, 37, 79, .06), 0 12px 32px -8px rgba(19, 37, 79, .18);
+  --radius: 22px;
+  --display: "M PLUS Rounded 1c", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Figtree", system-ui, sans-serif;
+  --thai: "IBM Plex Sans Thai Looped", "Thonburi", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sky-top: #1d3c8f;
+    --sky-bottom: #081235;
+    --ink: #e8eeff;
+    --ink-soft: #b9c5e6;
+    --ink-faint: #8593b8;
+    --paper: #0a1230;
+    --paper-2: #0f1a40;
+    --card: #131f4a;
+    --line: #26356a;
+    --grid: rgba(120, 160, 255, .07);
+    --blue: #7fb0ff;
+    --blue-soft: #1b2c66;
+    --red-soft: #3d1830;
+    --red-ink: #ff9fb0;
+    --green-soft: #12352d;
+    --green-ink: #7fe0b0;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 16px 40px -10px rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --sky-top: #1d3c8f;
+  --sky-bottom: #081235;
+  --ink: #e8eeff;
+  --ink-soft: #b9c5e6;
+  --ink-faint: #8593b8;
+  --paper: #0a1230;
+  --paper-2: #0f1a40;
+  --card: #131f4a;
+  --line: #26356a;
+  --grid: rgba(120, 160, 255, .07);
+  --blue: #7fb0ff;
+  --blue-soft: #1b2c66;
+  --red-soft: #3d1830;
+  --red-ink: #ff9fb0;
+  --green-soft: #12352d;
+  --green-ink: #7fe0b0;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 16px 40px -10px rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+:lang(th), .th { font-family: var(--thai); }
+a { color: inherit; }
+img, svg { display: block; max-width: 100%; }
+.wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+kbd {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: .86em;
+  padding: .12em .5em;
+  border-radius: 7px;
+  border: 1px solid currentColor;
+  border-bottom-width: 2.5px;
+  white-space: nowrap;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 14px;
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 800; letter-spacing: -.01em; line-height: 1.12; margin: 0; }
+h2 { font-size: clamp(30px, 4.4vw, 48px); }
+h3 { font-size: 21px; font-weight: 700; }
+p { margin: 0 0 1em; }
+.lede { font-size: clamp(18px, 2vw, 20px); color: var(--ink-soft); max-width: 60ch; }
+
+/* ---------- Sky (hero) ---------- */
+.sky {
+  position: relative;
+  color: #fff;
+  background:
+    radial-gradient(120% 80% at 80% 0%, rgba(255, 255, 255, .22), transparent 60%),
+    linear-gradient(180deg, var(--sky-top), var(--sky-bottom));
+  overflow: hidden;
+  isolation: isolate;
+}
+.sky::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .09;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: -1;
+}
+.stars { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity .6s; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .stars { opacity: 1; } }
+:root[data-theme="dark"] .stars { opacity: 1; }
+.stars i { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .7; }
+
+.drift { position: absolute; z-index: -1; fill: #fff; opacity: .16; animation: drift linear infinite; }
+.drift.d1 { width: 280px; top: 14%; left: -10%; animation-duration: 90s; }
+.drift.d2 { width: 180px; top: 58%; left: -20%; animation-duration: 70s; animation-delay: -30s; opacity: .12; }
+.drift.d3 { width: 360px; top: 76%; left: -30%; animation-duration: 120s; animation-delay: -70s; opacity: .1; }
+.drift.d4 { width: 140px; top: 30%; left: -15%; animation-duration: 60s; animation-delay: -45s; opacity: .14; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(140vw); } }
+
+nav.top {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 22px 0;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 800; font-size: 21px; }
+.brand img { width: 38px; height: 38px; }
+nav.top ul { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+nav.top ul a {
+  text-decoration: none; font-weight: 600; font-size: 15px;
+  padding: 8px 14px; border-radius: 999px; opacity: .9;
+  transition: background .2s, opacity .2s;
+}
+nav.top ul a:hover { background: rgba(255, 255, 255, .16); opacity: 1; }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 0 120px;
+}
+.status {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 14px; font-weight: 600;
+  padding: 7px 14px 7px 10px; border-radius: 999px;
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .28);
+  backdrop-filter: blur(6px);
+  margin-bottom: 26px;
+}
+.status::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 0 4px rgba(255, 216, 77, .25); }
+.hero h1 { font-size: clamp(44px, 7.2vw, 84px); line-height: 1.02; letter-spacing: -.02em; }
+.hero h1 .soft { color: var(--sun); }
+.hero .lede { color: rgba(255, 255, 255, .9); margin-top: 24px; }
+.keys { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.key {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; color: var(--ink);
+  padding: 12px 18px 12px 12px; border-radius: 16px;
+  box-shadow: 0 10px 30px -10px rgba(5, 20, 70, .5);
+  font-weight: 600; font-size: 15.5px; line-height: 1.3;
+}
+:root[data-theme="dark"] .key { color: #13254f; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .key { color: #13254f; } }
+.key kbd { background: var(--sun); border-color: #e0a800; color: #13254f; font-size: 16px; padding: 6px 10px; }
+.key small { display: block; font-weight: 500; color: #6b7896; font-size: 13.5px; }
+
+.buddy-stage { position: relative; display: grid; justify-items: center; }
+.buddy { width: min(470px, 100%); overflow: visible; filter: drop-shadow(0 22px 30px rgba(5, 20, 80, .35)); }
+.buddy .body { animation: float 6s ease-in-out infinite; transform-origin: 50% 60%; }
+.buddy .bub { animation: bob 4.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; transition: opacity .5s; }
+.buddy .bub.b2 { animation-delay: -1.6s; }
+.buddy .bub.b3 { animation-delay: -3.2s; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.2px); } }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-1.8px) rotate(-2deg); } }
+
+.face, .extra { opacity: 0; transition: opacity .35s; }
+[data-mood="hello"] .face.hello,
+[data-mood="proud"] .face.proud, [data-mood="proud"] .extra.proud,
+[data-mood="hmm"] .face.hmm, [data-mood="hmm"] .extra.hmm,
+[data-mood="resting"] .face.resting, [data-mood="resting"] .extra.resting { opacity: 1; }
+[data-mood="resting"] .bub { opacity: .3; animation-play-state: paused; }
+[data-mood="resting"] .body { animation-duration: 10s; }
+[data-mood="proud"] .bub { animation-duration: 1.6s; }
+.extra.hmm circle { animation: think 1.4s ease-in-out infinite; }
+.extra.hmm circle:nth-child(2) { animation-delay: .2s; }
+.extra.hmm circle:nth-child(3) { animation-delay: .4s; }
+@keyframes think { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.extra.resting text { animation: zzz 3s ease-in-out infinite; }
+.extra.resting text:nth-child(2) { animation-delay: 1s; }
+@keyframes zzz { 0% { opacity: 0; transform: translate(0, 2px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translate(3px, -4px); } }
+.extra.proud path { animation: twinkle 1.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.extra.proud path:nth-child(2) { animation-delay: .6s; }
+.extra.proud path:nth-child(3) { animation-delay: 1.2s; }
+@keyframes twinkle { 0%, 100% { transform: scale(.6); opacity: .5; } 50% { transform: scale(1.1); opacity: 1; } }
+
+.moods { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 8px; }
+.moods button {
+  font: 600 14px var(--body);
+  color: #fff;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .2s;
+}
+.moods button:hover { background: rgba(255, 255, 255, .22); transform: translateY(-1px); }
+.moods button[aria-pressed="true"] { background: #fff; color: #13254f; border-color: #fff; }
+.moods button:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+.mood-caption { min-height: 3.2em; margin: 14px auto 0; max-width: 34ch; text-align: center; color: rgba(255, 255, 255, .88); font-size: 15px; }
+.mood-caption b { color: #fff; }
+
+.horizon { position: absolute; left: 0; right: 0; bottom: -1px; height: 90px; z-index: 1; }
+.horizon path { fill: var(--paper); }
+
+/* ---------- Sections ---------- */
+section { position: relative; padding: 110px 0; }
+.mission { padding: 70px 0 40px; }
+.mission blockquote {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(26px, 3.6vw, 42px);
+  line-height: 1.25;
+  max-width: 24ch;
+  letter-spacing: -.01em;
+}
+.mission blockquote em { font-style: normal; color: var(--blue); }
+.mission .promise {
+  margin-top: 40px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+.promise div { border-top: 2px solid var(--line); padding-top: 16px; color: var(--ink-soft); font-size: 16px; }
+.promise b { display: block; color: var(--ink); font-family: var(--display); font-size: 18px; margin-bottom: 4px; }
+
+.split { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+.split.rev { grid-template-columns: 1.1fr .9fr; }
+.split.rev > .copy { order: 2; }
+.copy h2 { margin-bottom: 20px; }
+.copy .note { font-size: 14.5px; color: var(--ink-faint); border-left: 3px solid var(--line); padding-left: 14px; margin-top: 22px; }
+
+/* A floating panel, like the app's own */
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.panel-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px; font-weight: 600; color: var(--ink-faint);
+}
+.panel-bar .dots { display: flex; gap: 6px; margin-right: 6px; }
+.panel-bar .dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
+.panel-bar .dots i:nth-child(1) { background: #ff5f57; }
+.panel-bar .dots i:nth-child(2) { background: #febc2e; }
+.panel-bar .dots i:nth-child(3) { background: #28c840; }
+.panel-bar .grow { flex: 1; }
+.panel-body { padding: 20px; }
+.source { font-size: 18px; font-weight: 600; margin: 0 0 16px; }
+.answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.answer { border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; background: var(--paper); }
+.answer .who { font-size: 12.5px; font-weight: 700; color: var(--ink-faint); display: flex; justify-content: space-between; margin-bottom: 8px; }
+.answer .who span { font-family: var(--mono); font-weight: 400; }
+.answer p { font-family: var(--thai); font-size: 18px; line-height: 1.75; margin: 0; }
+.answer mark { background: none; color: inherit; text-decoration: underline; text-decoration-color: var(--sun-deep); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.why { margin: 14px 0 0; font-size: 14.5px; color: var(--ink-soft); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tabs button {
+  font: 600 13.5px var(--body); color: var(--ink-soft);
+  background: transparent; border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 12px; cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+}
+.tabs button[aria-selected="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+:root[data-theme="dark"] .tabs button[aria-selected="true"] { color: #0a1230; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tabs button[aria-selected="true"] { color: #0a1230; } }
+.tabs button:focus-visible, .reveal:focus-visible { outline: 3px solid var(--sun-deep); outline-offset: 2px; }
+
+.terms { margin-top: 46px; }
+.terms h3 { margin-bottom: 6px; }
+.terms > p { color: var(--ink-soft); font-size: 15.5px; }
+.term-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 18px; }
+.term {
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+  padding: 14px 14px 16px; box-shadow: var(--shadow);
+  transition: transform .25s;
+}
+.term:hover { transform: translateY(-3px) rotate(-.6deg); }
+.term .en { font-family: var(--display); font-weight: 800; font-size: 19px; margin-bottom: 8px; }
+.term .apple { font-family: var(--thai); font-size: 15px; text-decoration: line-through; text-decoration-color: var(--red-ink); color: var(--ink-faint); }
+.term .gloss { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 8px; }
+.term .gemma { font-family: var(--thai); font-size: 16px; font-weight: 600; color: var(--green-ink); }
+
+/* Check */
+.check-input { font-size: 18px; font-weight: 600; margin: 0 0 14px; }
+.check-input .bad { text-decoration: underline wavy var(--red-ink); text-underline-offset: 5px; }
+.issue { display: flex; gap: 12px; align-items: flex-start; background: var(--red-soft); border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; }
+.issue .tag { font-family: var(--mono); font-size: 12px; background: var(--card); border-radius: 8px; padding: 3px 8px; white-space: nowrap; color: var(--red-ink); }
+.issue p { margin: 0; font-size: 15px; }
+.issue s { color: var(--red-ink); }
+.issue ins { text-decoration: none; font-weight: 700; color: var(--green-ink); }
+.fixed { background: var(--green-soft); border-radius: 14px; padding: 12px 14px; font-weight: 600; margin-bottom: 14px; }
+.fixed small { display: block; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--green-ink); }
+.clean { display: flex; align-items: center; gap: 12px; background: var(--green-soft); border-radius: 14px; padding: 14px; font-weight: 600; }
+.clean svg { width: 44px; flex: none; }
+.tenses { border: 1px dashed var(--line); border-radius: 14px; padding: 10px 14px; }
+.tenses .cap { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-bottom: 4px; }
+.tenses ol { list-style: none; margin: 0; padding: 0; }
+.tenses li { display: grid; grid-template-columns: 124px 1fr; gap: 10px; padding: 5px 0; font-size: 15px; border-top: 1px solid var(--line); }
+.tenses li:first-child { border-top: 0; }
+.tenses li span { font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); padding-top: 2px; }
+.tenses li.used { font-weight: 700; }
+.tenses li.used span { color: var(--blue); }
+[hidden] { display: none !important; }
+
+/* Word */
+.word-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.word-head .w { font-family: var(--display); font-weight: 800; font-size: 34px; }
+.word-head .pos { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); }
+.from { display: inline-block; font-size: 13px; font-weight: 600; background: var(--blue-soft); color: var(--blue); border-radius: 8px; padding: 3px 9px; margin-bottom: 12px; }
+.meaning { font-family: var(--thai); font-size: 22px; font-weight: 600; margin: 0 0 18px; }
+.forms { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.forms span { font-size: 14px; border: 1px solid var(--line); border-radius: 10px; padding: 4px 10px; background: var(--paper); }
+.forms span b { font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--ink-faint); margin-right: 6px; }
+.example { border-left: 3px solid var(--sun-deep); padding: 2px 0 2px 14px; }
+.example p { margin: 0 0 8px; font-size: 16px; }
+.reveal {
+  display: block; width: 100%; text-align: left;
+  font: 500 17px/1.7 var(--thai); color: var(--ink);
+  background: var(--paper); border: 1px dashed var(--line); border-radius: 12px;
+  padding: 10px 12px; cursor: pointer; position: relative;
+}
+.reveal .th-text { filter: blur(6px); transition: filter .4s; user-select: none; }
+.reveal .hint { position: absolute; inset: 0; display: grid; place-items: center; font: 600 13.5px var(--body); color: var(--blue); transition: opacity .3s; }
+.reveal[aria-expanded="true"] .th-text { filter: none; user-select: text; }
+.reveal[aria-expanded="true"] .hint { opacity: 0; }
+
+/* Practice */
+.practice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.feat { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px; }
+.feat .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue); margin-bottom: 14px; }
+.feat .ico svg { width: 22px; height: 22px; }
+.feat h3 { font-size: 18px; margin-bottom: 6px; }
+.feat p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
+.chart { display: flex; align-items: flex-end; gap: 22px; height: 170px; padding: 10px 6px 0; border-bottom: 2px solid var(--line); }
+.bar { flex: 1; display: grid; justify-items: center; align-content: end; gap: 8px; height: 100%; }
+.bar i { width: 100%; max-width: 96px; border-radius: 12px 12px 4px 4px; background: linear-gradient(180deg, #3d8bff, #1554e8); height: 0; transition: height 1.2s cubic-bezier(.2, .8, .2, 1); }
+.bar b { font-family: var(--mono); font-weight: 500; font-size: 15px; }
+.bar.zero i { height: 4px !important; background: var(--green-ink); }
+.bar-labels { display: flex; gap: 22px; padding: 8px 6px 0; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
+.bar-labels span { flex: 1; text-align: center; }
+.proud-note { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-weight: 600; }
+.proud-note svg { width: 46px; flex: none; }
+
+/* Measured — a lab notebook */
+.measured {
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 28px 28px,
+    var(--paper-2);
+  border-block: 1px solid var(--line);
+}
+.ledger { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.entry { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 20px 18px; position: relative; }
+.entry .num { font-family: var(--mono); font-weight: 500; font-size: clamp(30px, 3.4vw, 40px); letter-spacing: -.03em; line-height: 1.1; color: var(--blue); }
+.entry .num small { font-size: .5em; color: var(--ink-faint); letter-spacing: 0; }
+.entry p { margin: 8px 0 0; font-size: 15px; color: var(--ink-soft); }
+.entry .date { position: absolute; top: 14px; right: 16px; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+.entry.wide { grid-column: span 2; }
+table.models { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 6px; }
+table.models th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--ink-faint); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+table.models td { padding: 9px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+table.models tr:last-child td { border-bottom: 0; }
+table.models td.n { font-family: var(--mono); font-size: 14px; }
+table.models .shipped td { font-weight: 700; }
+table.models .retired td { color: var(--ink-faint); }
+.pill { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green-ink); margin-left: 6px; }
+.pill.grey { background: var(--paper-2); color: var(--ink-faint); }
+.honest { margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.honest div { font-size: 15px; color: var(--ink-soft); padding: 16px 18px; border-radius: 16px; border: 1px dashed var(--line); background: var(--card); }
+.honest b { color: var(--ink); }
+
+/* Private */
+.private-list { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 14px; }
+.private-list li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; font-size: 16px; color: var(--ink-soft); }
+.private-list li b { color: var(--ink); }
+.private-list svg { width: 26px; height: 26px; color: var(--green-ink); margin-top: 1px; }
+.mac { position: relative; border-radius: 26px; padding: 26px; background: linear-gradient(180deg, #3d8bff, #1554e8); color: #fff; box-shadow: var(--shadow); overflow: hidden; }
+.menubar { display: flex; align-items: center; justify-content: flex-end; gap: 16px; background: rgba(255, 255, 255, .18); backdrop-filter: blur(8px); border-radius: 12px; padding: 7px 14px; font-size: 13px; font-weight: 600; }
+.menubar .glyph { width: 22px; height: 22px; padding: 2px; border-radius: 6px; background: rgba(255, 255, 255, .3); }
+.menubar .glyph path, .menubar .glyph circle { stroke: #fff; }
+.menubar .glyph circle { fill: #fff; }
+.offline { margin-top: 26px; display: grid; gap: 10px; }
+.offline div { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .22); border-radius: 14px; padding: 12px 16px; font-size: 15px; }
+.offline span { font-family: var(--mono); font-size: 12.5px; background: rgba(255, 255, 255, .2); padding: 3px 9px; border-radius: 8px; white-space: nowrap; }
+
+/* Buddy model */
+.coming { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 36px; box-shadow: var(--shadow); }
+.coming svg { width: 150px; }
+.coming h2 { font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; }
+.coming .vs { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.coming .vs div { font-size: 14.5px; color: var(--ink-soft); background: var(--paper); border-radius: 14px; padding: 10px 14px; }
+.coming .vs b { font-family: var(--mono); font-weight: 500; font-size: 18px; color: var(--blue); display: block; }
+
+/* Requirements */
+.reqs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+.req { border-top: 3px solid var(--blue); padding-top: 18px; }
+.req h3 { font-size: 19px; margin-bottom: 8px; }
+.req p { color: var(--ink-soft); font-size: 15.5px; margin: 0; }
+.req .opt { font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .12em; display: block; margin-bottom: 6px; }
+
+footer { padding: 60px 0 70px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-faint); }
+footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: flex-start; }
+footer .brand { color: var(--ink); font-size: 19px; }
+footer .brand img { width: 32px; height: 32px; }
+footer p { margin: 8px 0 0; max-width: 62ch; }
+
+/* Reveal on scroll; hidden only when the script that reveals it is running */
+.js .rise { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.js .rise.in { opacity: 1; transform: none; }
+.lift { animation: lift .9s cubic-bezier(.2, .8, .2, 1) both; }
+.lift:nth-child(2) { animation-delay: .1s; }
+.lift:nth-child(3) { animation-delay: .2s; }
+.lift:nth-child(4) { animation-delay: .3s; }
+.buddy-stage.lift { animation-delay: .35s; }
+@keyframes lift { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .rise { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+@media (max-width: 960px) {
+  .hero, .split, .split.rev { grid-template-columns: 1fr; }
+  .split.rev > .copy { order: 0; }
+  .hero { padding-bottom: 100px; gap: 10px; }
+  .buddy { width: min(380px, 100%); }
+  .ledger { grid-template-columns: 1fr 1fr; }
+  .term-row { grid-template-columns: repeat(3, 1fr); }
+  .practice-grid, .reqs { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  section { padding: 76px 0; }
+  nav.top ul { display: none; }
+  .answers, .honest, .mission .promise { grid-template-columns: 1fr; }
+  .ledger, .practice-grid, .reqs { grid-template-columns: 1fr; }
+  .entry.wide { grid-column: auto; }
+  .term-row { grid-template-columns: 1fr 1fr; }
+  .coming { grid-template-columns: 1fr; padding: 26px; justify-items: start; }
+  .coming svg { width: 110px; }
+  .panel-body { padding: 16px; }
+  .tenses li { grid-template-columns: 1fr; gap: 0; }
+  table.models { font-size: 13.5px; }
+  table.models th, table.models td { padding: 7px 4px; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="cloud" d="M30 72 C18 72 12 64 14 56 C15.5 49 21.5 45 27.5 46 C27.5 35 37 28 47 30 C53 21.5 66.5 21.5 72 30 C82.5 30 89.5 39 86.5 48 C93 51 94 62 88 68 C85 71 81 72 77 72 Z"/>
+    <path id="tail" d="M33 70 L27 82 C26.5 83.5 28 84.5 29.2 83.6 L44 71 Z"/>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#ffc21a"/></linearGradient>
+    <path id="bubTailR" d="M4 0 H20 C22.5 0 24 1.5 24 4 V16 C24 18.5 22.5 20 20 20 H20 V25 L14 20 H4 C1.5 20 0 18.5 0 16 V4 C0 1.5 1.5 0 4 0 Z"/>
+    <path id="bubTailL" d="M4 0 H20 C22.5 0 24 1.5 24 4 V16 C24 18.5 22.5 20 20 20 H10 L4 25 V20 H4 C1.5 20 0 18.5 0 16 V4 C0 1.5 1.5 0 4 0 Z"/>
+    <path id="bubTailM" d="M4 0 H20 C22.5 0 24 1.5 24 4 V16 C24 18.5 22.5 20 20 20 H15 L12 25 L9 20 H4 C1.5 20 0 18.5 0 16 V4 C0 1.5 1.5 0 4 0 Z"/>
+    <g id="koGlyph" fill="none" stroke="#1b2b5c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.6 15.2 V9.4 C8.6 7 10.2 5.4 12.4 5.4 C14.8 5.4 16.2 7.1 16.2 9.4 V15.2"/><circle cx="7.1" cy="8.6" r="1.5"/></g>
+    <g id="cheeks" fill="#ff8a9b" opacity=".9"><ellipse cx="37.5" cy="59" rx="4.3" ry="2.6"/><ellipse cx="67.5" cy="59" rx="4.3" ry="2.6"/></g>
+    <g id="faceHello"><ellipse cx="44" cy="53" rx="2.7" ry="3.3" fill="#2b2b33"/><ellipse cx="61" cy="53" rx="2.7" ry="3.3" fill="#2b2b33"/><path d="M50 58.5 Q52.5 61 55 58.5" fill="none" stroke="#2b2b33" stroke-width="1.9" stroke-linecap="round"/><use href="#cheeks"/></g>
+    <g id="faceProud"><path d="M41.2 54 Q44 50 46.8 54 M58.2 54 Q61 50 63.8 54" fill="none" stroke="#2b2b33" stroke-width="1.9" stroke-linecap="round"/><path d="M49.2 57.8 Q52.5 63.6 55.8 57.8 Z" fill="#2b2b33"/><use href="#cheeks"/></g>
+  </defs>
+</svg>
+
+<header class="sky" id="top">
+  <div class="stars" aria-hidden="true"></div>
+  <svg class="drift d1" viewBox="10 20 86 54" aria-hidden="true"><use href="#cloud"/></svg>
+  <svg class="drift d2" viewBox="10 20 86 54" aria-hidden="true"><use href="#cloud"/></svg>
+  <svg class="drift d3" viewBox="10 20 86 54" aria-hidden="true"><use href="#cloud"/></svg>
+  <svg class="drift d4" viewBox="10 20 86 54" aria-hidden="true"><use href="#cloud"/></svg>
+
+  <div class="wrap">
+    <nav class="top" aria-label="Main">
+      <a class="brand" href="#top"><img src="icon.svg" alt="" width="38" height="38">Languagly</a>
+      <ul>
+        <li><a href="#translate">Translate</a></li>
+        <li><a href="#check">Check</a></li>
+        <li><a href="#measured">Measured</a></li>
+        <li><a href="#private">Private</a></li>
+        <li><a href="#requirements">Requirements</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="status lift">In private testing · not yet available to download</div>
+        <h1 class="lift">Your language buddy, <span class="soft">always.</span></h1>
+        <p class="lede lift">Languagly lives in your Mac's menu bar. It translates Thai ↔ English and proofreads your English, on your Mac and offline, and every word you look up and every sentence you check becomes practice.</p>
+        <div class="keys lift">
+          <div class="key"><kbd>⌘T</kbd><span>Translate<small>anything you select, in any app</small></span></div>
+          <div class="key"><kbd>⌘G</kbd><span>Check your English<small>the rule, then the fix</small></span></div>
+        </div>
+      </div>
+
+      <div class="buddy-stage lift" data-mood="hello" id="buddy">
+        <svg class="buddy" viewBox="4 8 92 84" role="img" aria-labelledby="buddy-title">
+          <title id="buddy-title">Buddy, the Languagly cloud, speaking A, ก and 文</title>
+          <g transform="translate(9 20) scale(.85)"><g class="bub b1"><use href="#bubTailR" fill="url(#sun)"/><text x="12" y="15" text-anchor="middle" font-family="'M PLUS Rounded 1c', 'Arial Rounded MT Bold', sans-serif" font-weight="800" font-size="14" fill="#13254f">A</text></g></g>
+          <g transform="translate(39.8 14) scale(.85)"><g class="bub b2"><use href="#bubTailM" fill="#fff"/><use href="#koGlyph"/></g></g>
+          <g transform="translate(70.6 20) scale(.85)"><g class="bub b3"><use href="#bubTailL" fill="#fff"/><text x="12" y="15" text-anchor="middle" font-family="'M PLUS Rounded 1c', 'PingFang SC', 'Hiragino Sans GB', sans-serif" font-weight="700" font-size="12.5" fill="#1b2b5c">文</text></g></g>
+          <g class="body">
+            <g transform="translate(7.6 20) scale(.8)">
+              <use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/>
+              <g class="face hello"><use href="#faceHello"/></g>
+              <g class="face proud"><use href="#faceProud"/></g>
+              <g class="face hmm"><ellipse cx="45.4" cy="51.6" rx="2.7" ry="3.3" fill="#2b2b33"/><ellipse cx="62.4" cy="51.6" rx="2.7" ry="3.3" fill="#2b2b33"/><path d="M50.5 59.6 Q52 58.6 53.5 59.4 T56 59" fill="none" stroke="#2b2b33" stroke-width="1.7" stroke-linecap="round"/><use href="#cheeks"/></g>
+              <g class="face resting"><path d="M41.2 52.6 Q44 55.8 46.8 52.6 M58.2 52.6 Q61 55.8 63.8 52.6" fill="none" stroke="#2b2b33" stroke-width="1.9" stroke-linecap="round"/><path d="M51 59.2 Q52.5 60.4 54 59.2" fill="none" stroke="#2b2b33" stroke-width="1.7" stroke-linecap="round"/><use href="#cheeks"/></g>
+            </g>
+            <g class="extra proud" fill="#ffd84d"><path d="M86 38 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2 -3 -3 -1.2 3 -1.2Z"/><path d="M14 46 l.9 2.2 2.2.9 -2.2.9 -.9 2.2 -.9 -2.2 -2.2 -.9 2.2 -.9Z"/><path d="M80 78 l.8 2 2 .8 -2 .8 -.8 2 -.8 -2 -2 -.8 2 -.8Z"/></g>
+            <g class="extra hmm" fill="#fff"><circle cx="80" cy="40" r="1.6"/><circle cx="85" cy="36" r="2.1"/><circle cx="91" cy="31" r="2.7"/></g>
+            <g class="extra resting" fill="#fff" font-family="'M PLUS Rounded 1c', sans-serif" font-weight="800"><text x="78" y="44" font-size="6">z</text><text x="84" y="37" font-size="8">z</text></g>
+          </g>
+        </svg>
+        <div class="moods" role="group" aria-label="Buddy's mood">
+          <button type="button" data-mood="hello" aria-pressed="true">Hello</button>
+          <button type="button" data-mood="proud" aria-pressed="false">So proud</button>
+          <button type="button" data-mood="hmm" aria-pressed="false">Hmm, let's see</button>
+          <button type="button" data-mood="resting" aria-pressed="false">Resting</button>
+        </div>
+        <p class="mood-caption" id="mood-caption" aria-live="polite"><b>Hi, I'm Buddy.</b> Select some English anywhere and press ⌘T.</p>
+      </div>
+    </div>
+  </div>
+
+  <svg class="horizon" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 60 C120 30 220 30 320 52 C400 18 520 14 600 44 C680 20 790 22 860 50 C940 16 1060 12 1140 46 C1220 26 1330 28 1440 50 V90 H0 Z"/>
+  </svg>
+</header>
+
+<main>
+
+<section class="mission">
+  <div class="wrap">
+    <p class="eyebrow rise">Why it exists</p>
+    <blockquote class="rise">Language is the gate to the world's knowledge. We help you <em>open it yourself</em>, not have AI walk through it for you.</blockquote>
+    <div class="promise">
+      <div class="rise"><b>Learn from your own work</b>Every word you look up and every sentence you check becomes practice.</div>
+      <div class="rise"><b>One keystroke, anywhere</b>⌘T translates and ⌘G checks without leaving what you are doing.</div>
+      <div class="rise"><b>Private</b>Translation and checking run on your Mac and work offline. Cloud models are opt-in.</div>
+    </div>
+  </div>
+</section>
+
+<section id="translate">
+  <div class="wrap">
+    <div class="split">
+      <div class="copy rise">
+        <p class="eyebrow">⌘T · Translate</p>
+        <h2>Two answers, side by side.</h2>
+        <p class="lede">Apple's Translation framework answers on your Mac. With the local model on, Gemma 4 E2B translates the same English beside it, and usually first: 0.40 s against Apple's 1.8 s for ten words.</p>
+        <p>Each answer is a card, and the words the two disagree on are underlined, so you see where the meaning is in doubt. Settings → <i>Translate with</i> picks Apple + Gemma, Apple only, or Gemma only. Thai → English is always Apple.</p>
+        <p class="note">Sentences and answers on this page come from the app's 76-row Thai test corpus, as each engine answered them. Neither is always right: on its own, Gemma sometimes misspells Thai that Apple never does. That is why you see both.</p>
+      </div>
+
+      <div class="panel rise" aria-label="Example translation">
+        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Translate</span><span>EN → TH</span></div>
+        <div class="panel-body">
+          <div class="tabs" role="tablist" aria-label="Example sentences">
+            <button type="button" role="tab" aria-selected="true" data-ex="0">Balance sheet</button>
+            <button type="button" role="tab" aria-selected="false" data-ex="1">Credit spreads</button>
+            <button type="button" role="tab" aria-selected="false" data-ex="2">Net sellers</button>
+          </div>
+          <p class="source" id="tr-source">The Fed will keep shrinking its balance sheet.</p>
+          <div class="answers">
+            <div class="answer"><div class="who">Apple <span>on-device</span></div><p lang="th" id="tr-apple">เฟดจะยังคงลดขนาด<mark>สมดุลของตน</mark>ต่อไป</p></div>
+            <div class="answer"><div class="who">Gemma 4 E2B <span>on-device</span></div><p lang="th" id="tr-gemma">เฟดจะยังคงลดขนาด<mark>งบดุล</mark>ต่อไป</p></div>
+          </div>
+          <p class="why" id="tr-why">A balance sheet is งบดุล. Apple read “balance” in its everyday sense, สมดุล: equilibrium.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="terms">
+      <h3 class="rise">The everyday sense, or the term of art</h3>
+      <p class="rise">Most of what Apple misses is a single word read in its everyday sense. Across the 309 concepts in the corpus, Apple's answers carry 278 (90%) and Gemma's 291 (94%).</p>
+      <div class="term-row">
+        <div class="term rise"><div class="en">hedge</div><div class="apple" lang="th">รั้วไม้</div><div class="gloss">a garden hedge</div><div class="gemma" lang="th">การป้องกันความเสี่ยง</div></div>
+        <div class="term rise"><div class="en">maturity</div><div class="apple" lang="th">ความเป็นผู้ใหญ่</div><div class="gloss">being grown up</div><div class="gemma" lang="th">อายุของตราสาร</div></div>
+        <div class="term rise"><div class="en">rally</div><div class="apple" lang="th">การชุมนุม</div><div class="gloss">a street rally</div><div class="gemma" lang="th">การปรับตัวขึ้น</div></div>
+        <div class="term rise"><div class="en">default</div><div class="apple" lang="th">ค่าเริ่มต้น</div><div class="gloss">a default setting</div><div class="gemma" lang="th">การผิดนัดชำระ</div></div>
+        <div class="term rise"><div class="en">bond</div><div class="apple" lang="th">พันธะ</div><div class="gloss">a tie, an obligation</div><div class="gemma" lang="th">พันธบัตร</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="check" style="padding-top: 30px">
+  <div class="wrap">
+    <div class="split rev">
+      <div class="copy rise">
+        <p class="eyebrow">⌘G · Check</p>
+        <h2>Proofread your own English, gently.</h2>
+        <p class="lede">Select a sentence you wrote, anywhere, and press ⌘G. Languagly lists each mistake, then the corrected sentence, then the same sentence in five tenses as a reference.</p>
+        <p>When your English is already right, it says so and changes nothing. Getting that right took measuring: an early prompt invented a mistake in every correct sentence it saw.</p>
+        <p class="note">Sentences and fixes from the 200-sentence test corpus, each made by the shipped model. The rule lines are written for this page.</p>
+      </div>
+
+      <div class="panel rise" aria-label="Example check">
+        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Check</span><span>0.3 s</span></div>
+        <div class="panel-body">
+          <div class="tabs" role="tablist" aria-label="Example checks">
+            <button type="button" role="tab" aria-selected="true" data-ck="0">Agreement</button>
+            <button type="button" role="tab" aria-selected="false" data-ck="1">After “did”</button>
+            <button type="button" role="tab" aria-selected="false" data-ck="2">Preposition</button>
+            <button type="button" role="tab" aria-selected="false" data-ck="3">Already right</button>
+          </div>
+          <p class="check-input" id="ck-input"></p>
+          <div id="ck-result"></div>
+          <div class="tenses" id="ck-tenses">
+            <div class="cap">five tenses · a reference, not a verdict</div>
+            <ol id="ck-tense-list"></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="words" style="padding-top: 30px">
+  <div class="wrap">
+    <div class="split">
+      <div class="copy rise">
+        <p class="eyebrow">Tap any word</p>
+        <h2>Guess first, then check.</h2>
+        <p class="lede">Tap a word for its dictionary entry, verb forms, synonyms and antonyms, and usage examples. Each example's Thai stays hidden until you tap it.</p>
+        <p>When the dictionary only lists a word under its root, Languagly says where the meaning came from, and the local model writes the word's own Thai meaning: right on 18 of 20 real words, in about 0.3 s each.</p>
+        <p class="note">The example sentence here is from the test corpus, with Gemma's Thai; in the app the examples are written for each word.</p>
+      </div>
+      <div class="panel rise" aria-label="Example dictionary entry">
+        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Dictionary</span></div>
+        <div class="panel-body">
+          <div class="word-head"><span class="w">availability</span><span class="pos">noun</span></div>
+          <span class="from">from available (adj.)</span>
+          <p class="meaning" lang="th">ความพร้อมใช้งาน</p>
+          <div class="word-head" style="margin-top:4px"><span class="w" style="font-size:24px">widen</span><span class="pos">verb</span></div>
+          <div class="forms"><span><b>base</b>widen</span><span><b>-s</b>widens</span><span><b>past</b>widened</span><span><b>p.p.</b>widened</span><span><b>-ing</b>widening</span></div>
+          <div class="example">
+            <p>Credit spreads <b>widened</b> to their highest level since March.</p>
+            <button type="button" class="reveal" aria-expanded="false" id="reveal">
+              <span class="th-text" lang="th">ส่วนต่างอัตราเครดิตขยายตัวถึงระดับสูงสุดนับตั้งแต่เดือนมีนาคม</span>
+              <span class="hint">Your guess first. Tap to see the Thai</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practice" style="padding-top: 30px">
+  <div class="wrap">
+    <div class="split rev">
+      <div class="copy rise">
+        <p class="eyebrow">Practice</p>
+        <h2>Your mistakes become your lessons.</h2>
+        <p class="lede">Every check is kept. Practice is built from your own corrections and spaced out so it sticks, and the dashboard shows you getting better: clean rate by week, and mistakes by type.</p>
+      </div>
+      <div class="panel rise" aria-label="Agreement mistakes by month">
+        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Analytics · agreement mistakes</span></div>
+        <div class="panel-body">
+          <div class="chart" id="chart">
+            <div class="bar" data-v="26"><b>26</b><i></i></div>
+            <div class="bar zero" data-v="0"><b>0</b><i></i></div>
+          </div>
+          <div class="bar-labels"><span>August</span><span>September</span></div>
+          <div class="proud-note">
+            <svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceProud"/></svg>
+            <span>26 agreement mistakes in August, none in September, on the developer's own check history.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-grid">
+      <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg></div><h3>Glossary and wordbank</h3><p>Save words as you meet them, with the sentence you met them in.</p></div>
+      <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div><h3>Spaced repetition</h3><p>Drills from your own corrections, timed so you see each one just before you forget it.</p></div>
+      <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>A daily reminder</h3><p>Once a day, how many saved words are due for review. An invitation, never a nag.</p></div>
+      <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6"/></svg></div><h3>Ask</h3><p>Ask about a mistake type or a word, and keep the answer.</p></div>
+      <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l1 3H8z"/><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 13h6"/></svg></div><h3>Right-click → Translate</h3><p>From the Services menu in any app, if you would rather click than press ⌘T.</p></div>
+      <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div><h3>One-file backup</h3><p>Everything in one JSON file. Restoring merges, so it never deletes work done since.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="measured" id="measured">
+  <div class="wrap">
+    <p class="eyebrow rise">Measured, not assumed</p>
+    <h2 class="rise">The numbers, with their dates.</h2>
+    <p class="lede rise" style="margin-top:18px">A product that teaches has to be honest about how often it is right. Every figure here was measured on this app, on a Mac, and carries the date it was measured or first published.</p>
+
+    <div class="ledger">
+      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">116<small>/126</small></div><p>known mistakes caught on the 200-sentence corpus</p></div>
+      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">8<small>/74</small></div><p>correct sentences altered: the false alarms</p></div>
+      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">0.3<small> s</small></div><p>a check with the model warm: 200 checks in 59 s, one load included</p></div>
+      <div class="entry rise"><span class="date">2026-10-01</span><div class="num">0.40<small> s</small></div><p>for Gemma to translate ten words, against 1.8 s for Apple</p></div>
+      <div class="entry rise"><span class="date">2026-09-01</span><div class="num">19<small> MB</small></div><p>at rest. The model takes 2.15 GB while loaded, is released after ten idle minutes, and reloads in about 1.2 s</p></div>
+      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">2.05<small> GB</small></div><p>on disk, from 3.55. The model is repacked on your Mac, and every answer on the test corpora stays byte-identical</p></div>
+
+      <div class="entry wide rise">
+        <table class="models">
+          <thead><tr><th>model</th><th>caught</th><th>false alarms</th><th>accuracy</th><th>per check</th></tr></thead>
+          <tbody>
+            <tr class="shipped"><td>Gemma 4 E2B <span class="pill">shipped</span></td><td class="n">116/126</td><td class="n">8/74</td><td class="n">91%</td><td class="n">0.3 s</td></tr>
+            <tr class="retired"><td>Gemma 3 4B <span class="pill grey">retired</span></td><td class="n">109/126</td><td class="n">12/74</td><td class="n">86%</td><td class="n">6.1 s</td></tr>
+            <tr class="retired"><td>Qwen 3.5 4B <span class="pill grey">retired</span></td><td class="n">92/126</td><td class="n">1/74</td><td class="n">83%</td><td class="n">2.0 s</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="entry rise"><p style="margin:0"><b style="color:var(--ink)">Why the most precise model lost.</b> Qwen altered only one correct sentence, but missed 34 of the 126 mistakes, against Gemma's 10. For a learner a miss is the worse failure, because silence reads as approval.</p><p style="font-size:13px">The retired models were timed in August, before the instruction cache, so their times are not comparable.</p></div>
+    </div>
+
+    <div class="honest">
+      <div class="rise"><b>What the numbers do not say yet.</b> Concept coverage says whether the meaning arrived, not whether the Thai reads well. The labels were drafted, not written by a Thai reader, and the blind side-by-side sheet for a Thai reader has not been judged yet.</div>
+      <div class="rise"><b>What it gave up.</b> To stop inventing mistakes in correct English, the checker no longer reports pure register problems, like “please kindly advise”. A rule that has no measured benefit is taken out.</div>
+    </div>
+  </div>
+</section>
+
+<section id="private">
+  <div class="wrap">
+    <div class="split">
+      <div class="copy rise">
+        <p class="eyebrow">Private by default</p>
+        <h2>Your sentences stay on your Mac.</h2>
+        <ul class="private-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>On the device, offline.</b> Apple's Translation framework and the local model both run on your Mac. Translation works with no network at all.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>The local model is opt-in.</b> Turn it on in Settings when you want it. Without it, translation is free and still offline.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Cloud models only if you ask.</b> API mode is off by default. If you turn it on, your keys live in the Keychain, never in a settings file or a backup.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>No account.</b> Nothing to sign up for, and nothing synced anywhere.</span></li>
+        </ul>
+      </div>
+      <div class="mac rise" aria-hidden="true">
+        <div class="menubar">
+          <svg class="glyph" viewBox="0 0 18 18"><path d="M5.4 13.4 C3.2 13.4 2.1 11.9 2.5 10.4 C2.8 9.1 3.9 8.4 5 8.6 C5 6.6 6.7 5.3 8.6 5.7 C9.7 4.1 12.1 4.1 13.1 5.7 C15 5.7 16.3 7.4 15.8 9 C17 9.6 17.2 11.6 16.1 12.7 C15.6 13.2 14.9 13.4 14.2 13.4 H8.6 L5.3 16 L6 13.4 Z" fill="none" stroke-width="1.5" stroke-linejoin="round"/><circle cx="8" cy="9.9" r=".95"/><circle cx="11.4" cy="9.9" r=".95"/></svg>
+          <span>Mon 9:41</span>
+        </div>
+        <div class="offline">
+          <div>Translate · Apple <span>offline</span></div>
+          <div>Translate · Gemma 4 E2B <span>on your Mac</span></div>
+          <div>Check · Gemma 4 E2B <span>on your Mac</span></div>
+          <div>API providers <span>off</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 20px">
+  <div class="wrap">
+    <div class="coming rise">
+      <svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceHello"/></svg>
+      <div>
+        <p class="eyebrow">Next · measured, not shipped yet</p>
+        <h2>Buddy, tuned for Thai finance.</h2>
+        <p style="color:var(--ink-soft);margin:0">The same Gemma 4 E2B, fine-tuned on Thai finance, at the same size and memory. It carries more of the meaning and raises fewer false alarms.</p>
+        <div class="vs">
+          <div><b>299/309</b>Thai concepts, against 291 today</div>
+          <div><b>3/74</b>false alarms, against 8 today</div>
+          <div><b>2.05 GB</b>the same size on disk</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="requirements">
+  <div class="wrap">
+    <p class="eyebrow rise">Requirements</p>
+    <h2 class="rise">What you need.</h2>
+    <div class="reqs">
+      <div class="req rise"><span class="opt">Required</span><h3>A Mac with Apple Silicon</h3><p>Built for arm64 only. The local model needs unified memory, so an Intel Mac is refused at install rather than given a feature that silently does nothing.</p></div>
+      <div class="req rise"><span class="opt">Required</span><h3>macOS 15 Sequoia or newer</h3><p>Apple's on-device translation needs it. The first translation triggers Apple's one-time language download.</p></div>
+      <div class="req rise"><span class="opt">Optional · the local model</span><h3>3.6 GB, once</h3><p>Downloaded once and repacked to 2.05 GB, with about 5.6 GB free while that runs. It needs about 2.5 GB of free memory while loaded. Translation itself needs none of this.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a class="brand" href="#top"><img src="icon.svg" alt="" width="32" height="32">Languagly</a>
+        <p>Your language buddy, always. In private testing, not yet available to download.</p>
+      </div>
+      <div>
+        <p>Gemma is provided under and subject to the <a href="https://ai.google.dev/gemma/terms">Gemma Terms of Use</a> and the <a href="https://ai.google.dev/gemma/prohibited_use_policy">Prohibited Use Policy</a>. The weights are not bundled: the app downloads a community MLX conversion and repacks it on your Mac.</p>
+        <p>Languagly is not affiliated with Apple or Google. Apple, Mac and macOS are trademarks of Apple Inc. © <span id="year">2026</span> Languagly.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  // Stars for the night sky in dark mode.
+  const stars = $(".stars");
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement("i");
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 80 + "%";
+    s.style.opacity = (.25 + Math.random() * .6).toFixed(2);
+    stars.appendChild(s);
+  }
+
+  // Buddy's moods.
+  const captions = {
+    hello: "<b>Hi, I'm Buddy.</b> Select some English anywhere and press ⌘T.",
+    proud: "<b>So proud of you.</b> A clean check, or a mistake type that drops away.",
+    hmm: "<b>Hmm, let's see.</b> A check takes about 0.3 s with the model warm.",
+    resting: "<b>Resting.</b> After ten idle minutes the model is released: 19 MB until you need it."
+  };
+  const stage = $("#buddy");
+  $$(".moods button").forEach(b => b.addEventListener("click", () => {
+    stage.dataset.mood = b.dataset.mood;
+    $$(".moods button").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+    $("#mood-caption").innerHTML = captions[b.dataset.mood];
+  }));
+
+  // Translation examples: real answers from the Thai test corpus.
+  const tr = [
+    { en: "The Fed will keep shrinking its balance sheet.",
+      apple: "เฟดจะยังคงลดขนาด<mark>สมดุลของตน</mark>ต่อไป",
+      gemma: "เฟดจะยังคงลดขนาด<mark>งบดุล</mark>ต่อไป",
+      why: "A balance sheet is งบดุล. Apple read “balance” in its everyday sense, สมดุล: equilibrium." },
+    { en: "Credit spreads widened to their highest level since March.",
+      apple: "<mark>ช่องว่างเครดิตกว้างขึ้น</mark>ถึงระดับสูงสุดนับตั้งแต่เดือนมีนาคม",
+      gemma: "<mark>ส่วนต่างอัตราเครดิตขยายตัว</mark>ถึงระดับสูงสุดนับตั้งแต่เดือนมีนาคม",
+      why: "A credit spread is a ส่วนต่าง, a difference between two rates. ช่องว่าง is a gap." },
+    { en: "Foreign investors were net sellers of Thai stocks for a fifth week.",
+      apple: "นักลงทุนต่างชาติ<mark>เป็นผู้ขายหุ้นไทยเป็นรายได้สุทธิ</mark>เป็นสัปดาห์ที่ห้า",
+      gemma: "นักลงทุนต่างชาติ<mark>ขายหุ้นไทยสุทธิมา</mark>เป็นสัปดาห์ที่ห้า<mark>แล้ว</mark>",
+      why: "“Net sellers” became รายได้สุทธิ, net income, in Apple's answer. Gemma kept the meaning: they sold, net." }
+  ];
+  $$("[data-ex]").forEach(b => b.addEventListener("click", () => {
+    const e = tr[+b.dataset.ex];
+    $("#tr-source").textContent = e.en;
+    $("#tr-apple").innerHTML = e.apple;
+    $("#tr-gemma").innerHTML = e.gemma;
+    $("#tr-why").textContent = e.why;
+    $$("[data-ex]").forEach(o => o.setAttribute("aria-selected", String(o === b)));
+  }));
+
+  // Check examples: corpus sentences and the shipped model's fixes.
+  const ck = [
+    { input: 'The fund <span class="bad">carry</span> too much risk.',
+      type: "third-person -s", rule: 'A singular subject takes -s in the present simple: <s>carry</s> → <ins>carries</ins>.',
+      fixed: "The fund carries too much risk.",
+      tenses: [["present", "The fund carries too much risk.", true], ["past", "The fund carried too much risk."], ["perfect", "The fund has carried too much risk."], ["continuous", "The fund is carrying too much risk."], ["future", "The fund will carry too much risk."]] },
+    { input: 'Did they <span class="bad">sold</span> the position?',
+      type: "do-support", rule: 'After <i>did</i>, the verb goes back to its base form: <s>sold</s> → <ins>sell</ins>.',
+      fixed: "Did they sell the position?", tenses: null },
+    { input: 'I am interested <span class="bad">on</span> bonds.',
+      type: "preposition", rule: '<i>Interested</i> takes <i>in</i>: <s>on</s> → <ins>in</ins>.',
+      fixed: "I am interested in bonds.", tenses: null },
+    { input: "Yields rose sharply after the auction.", clean: true }
+  ];
+  const showCheck = i => {
+    const c = ck[i];
+    $("#ck-input").innerHTML = c.input;
+    const res = $("#ck-result");
+    if (c.clean) {
+      res.innerHTML = '<div class="clean"><svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceProud"/></svg><span>Looks right. Nothing to fix, so nothing changed.</span></div>';
+    } else {
+      res.innerHTML = '<div class="issue"><span class="tag">' + c.type + '</span><p>' + c.rule + '</p></div>' +
+        '<div class="fixed"><small>corrected</small>' + c.fixed + '</div>';
+    }
+    const t = $("#ck-tenses");
+    if (c.tenses) {
+      $("#ck-tense-list").innerHTML = c.tenses.map(([n, s, used]) => '<li' + (used ? ' class="used"' : '') + '><span>' + n + (used ? ' · yours' : '') + '</span>' + s + '</li>').join("");
+      t.hidden = false;
+    } else {
+      t.hidden = true;
+    }
+    $$("[data-ck]").forEach(o => o.setAttribute("aria-selected", String(+o.dataset.ck === i)));
+  };
+  $$("[data-ck]").forEach(b => b.addEventListener("click", () => showCheck(+b.dataset.ck)));
+  showCheck(0);
+
+  // Guess first, then reveal the Thai.
+  const rv = $("#reveal");
+  rv.addEventListener("click", () => rv.setAttribute("aria-expanded", rv.getAttribute("aria-expanded") === "true" ? "false" : "true"));
+
+  // Rise in on scroll, and grow the chart when it is seen.
+  const grow = () => $$("#chart .bar").forEach(b => { b.querySelector("i").style.height = (+b.dataset.v / 26 * 120) + "px"; });
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in");
+      if (e.target.querySelector && e.target.querySelector("#chart")) grow();
+      io.unobserve(e.target);
+    }), { threshold: .12, rootMargin: "0px 0px -40px 0px" });
+    $$(".rise").forEach(el => io.observe(el));
+  } else {
+    $$(".rise").forEach(el => el.classList.add("in"));
+    grow();
+  }
+
+  $("#year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

@@ -411,7 +411,7 @@ svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
 .bar { flex: 1; display: grid; justify-items: center; align-content: end; gap: 8px; height: 100%; }
 .bar i { width: 100%; max-width: 96px; border-radius: 12px 12px 4px 4px; background: linear-gradient(180deg, #3d8bff, #1554e8); height: 0; transition: height 1.2s cubic-bezier(.2, .8, .2, 1); }
 .bar b { font-family: var(--mono); font-weight: 500; font-size: 15px; }
-.bar.zero i { height: 4px !important; background: var(--green-ink); }
+.panel-bar .illus { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; color: var(--stamp); border: 2px solid var(--stamp); border-radius: 6px; padding: 1px 7px; rotate: -4deg; }
 .bar-labels { display: flex; gap: 22px; padding: 8px 6px 0; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
 .bar-labels span { flex: 1; text-align: center; }
 .proud-note { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-weight: 600; }
@@ -432,6 +432,23 @@ svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
 .entry p { margin: 8px 0 0; font-size: 15px; color: var(--ink-soft); }
 .entry .date { position: absolute; top: 14px; right: 16px; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
 .entry.wide { grid-column: span 2; }
+.timeline { list-style: none; margin: 44px 0 0; padding: 0; position: relative; display: grid; grid-template-columns: 1fr 1fr; column-gap: 68px; row-gap: 22px; }
+.timeline::before { content: ""; position: absolute; top: 10px; bottom: 10px; left: 50%; width: 3px; margin-left: -1.5px; background: repeating-linear-gradient(180deg, var(--ink-line) 0 9px, transparent 9px 16px); opacity: .4; }
+.timeline li { position: relative; }
+.timeline li:nth-child(even) { margin-top: 64px; margin-bottom: -64px; }
+.timeline li::before { content: ""; position: absolute; top: 24px; width: 18px; height: 18px; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink-line); z-index: 1; }
+.timeline li:nth-child(odd)::before { right: -44px; }
+.timeline li:nth-child(even)::before { left: -44px; }
+.timeline li:last-child { margin-bottom: 0; }
+.step { height: 100%; }
+.step .ver { display: inline-block; font-family: var(--mono); font-size: 11.5px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); margin-bottom: 10px; }
+.step .num { font-size: clamp(26px, 3vw, 34px); }
+.step h3 { font-size: 17px; margin: 6px 0 0; }
+.step p { font-size: 14.5px; }
+.timeline li.next::before { background: #fff; border-style: dashed; }
+.timeline li.next .step { border-style: dashed; border-width: 2px; }
+.timeline li.next .ver { background: var(--sun); color: #13254f; }
+.timeline + .ledger { margin-top: 110px; }
 table.models { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 6px; }
 table.models th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--ink-faint); padding: 6px 8px; border-bottom: 1px solid var(--line); }
 table.models td { padding: 9px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
@@ -511,6 +528,11 @@ footer p { margin: 8px 0 0; max-width: 62ch; }
   .hero { padding-bottom: 100px; gap: 10px; }
   .buddy { width: min(380px, 100%); }
   .ledger { grid-template-columns: 1fr 1fr; }
+  .timeline { grid-template-columns: 1fr; padding-left: 34px; }
+  .timeline::before { left: 10px; }
+  .timeline li:nth-child(even) { margin: 0; }
+  .timeline li:nth-child(odd)::before, .timeline li:nth-child(even)::before { left: -33px; right: auto; }
+  .timeline + .ledger { margin-top: 44px; }
   .term-row { grid-template-columns: repeat(3, 1fr); }
   .practice-grid, .reqs { grid-template-columns: 1fr 1fr; }
 }
@@ -912,17 +934,19 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <h2>Your mistakes become your <span class="hl">lessons</span>.</h2>
         <p class="lede">Every check is kept. Practice is built from your own corrections and spaced out so it sticks, and the dashboard shows you getting better: clean rate by week, and mistakes by type.</p>
       </div>
-      <div class="panel rise" aria-label="Agreement mistakes by month">
-        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Analytics · agreement mistakes</span></div>
+      <div class="panel rise" aria-label="Illustration of the clean-rate chart">
+        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Analytics · clean checks by week</span><span class="illus">illustration</span></div>
         <div class="panel-body">
           <div class="chart" id="chart">
-            <div class="bar" data-v="26"><b>26</b><i></i></div>
-            <div class="bar zero" data-v="0"><b>0</b><i></i></div>
+            <div class="bar" data-v="34"><i></i></div>
+            <div class="bar" data-v="48"><i></i></div>
+            <div class="bar" data-v="61"><i></i></div>
+            <div class="bar" data-v="77"><i></i></div>
           </div>
-          <div class="bar-labels"><span>August</span><span>September</span></div>
+          <div class="bar-labels"><span>week 1</span><span>week 2</span><span>week 3</span><span>week 4</span></div>
           <div class="proud-note">
             <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg>
-            <span>26 agreement mistakes in August, none in September, on the developer's own check history.</span>
+            <span>An illustration, not real data. In the app this chart is your own history: the share of your checks that came back clean, week by week.</span>
           </div>
         </div>
       </div>
@@ -942,17 +966,21 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
 <section class="measured" id="measured">
   <div class="wrap">
     <p class="eyebrow rise">Measured, not assumed · <span lang="th">วัดจริง ไม่เดา</span></p>
-    <h2 class="rise">The numbers, with <span class="hl">their dates</span>.</h2>
-    <p class="lede rise" style="margin-top:18px">A product that teaches has to be honest about how often it is right. Every figure here was measured on this app, on a Mac, and carries the date it was measured or first published.</p>
+    <h2 class="rise">How the numbers <span class="hl">got here</span>.</h2>
+    <p class="lede rise" style="margin-top:18px">A product that teaches has to be honest about how often it is right. Each step below was measured on this app, on a Mac, and carries the date of the release that shipped it, or the day it was measured.</p>
+
+    <ol class="timeline">
+      <li class="rise"><div class="entry step"><span class="date">2026-08-25</span><span class="ver">v2.20</span><div class="num">6.1 → 1.4<small> s</small></div><h3>Gemma 4 E2B replaces Gemma 3 4B</h3><p>A check takes 1.4 s instead of 6.1 s, and accuracy on the 200-sentence corpus goes from 86% to 91%.</p></div></li>
+      <li class="rise"><div class="entry step"><span class="date">2026-08-31</span><span class="ver">v2.31</span><div class="num">9 → 5<small> rules</small></div><h3>Four checker rules deleted</h3><p>Rules that refuse a bad correction. On 211 scored sentences four never fired once, and one refused a real fix.</p></div></li>
+      <li class="rise"><div class="entry step"><span class="date">2026-09-01</span><span class="ver">v2.32</span><div class="num">2,980 → 19<small> MB</small></div><h3>The model rests when you do</h3><p>It is released after ten idle minutes and loaded again when you need it.</p></div></li>
+      <li class="rise"><div class="entry step"><span class="date">2026-09-16</span><span class="ver">v2.36</span><div class="num">1.15 → 0.73<small> s</small></div><h3>A shorter prompt</h3><p>The model had stopped writing the per-mistake line the prompt asked for. The corrections come from comparing its rewrite with your sentence, so the line went.</p></div></li>
+      <li class="rise"><div class="entry step"><span class="date">2026-10-01</span><span class="ver">v2.37</span><div class="num">2.1 → 0.40<small> s</small></div><h3>Gemma translates beside Apple</h3><p>For ten words, Gemma's answer arrives in 0.40 s instead of 2.1 s, by translating your English directly rather than correcting Apple's draft. Apple's own takes 1.8 s.</p></div></li>
+      <li class="rise"><div class="entry step"><span class="date">2026-10-15</span><span class="ver">re-run</span><div class="num">0.3<small> s</small></div><h3>Re-measured: 116/126 caught, 8/74 false alarms</h3><p>A check with the model warm, on the repacked model: 200 checks in 59 s, one load included. Accuracy 91%.</p></div></li>
+      <li class="rise"><div class="entry step"><span class="date">2026-10-19</span><span class="ver">v2.39</span><div class="num">3.55 → 2.05<small> GB</small></div><h3>Repacked on your Mac</h3><p>Audio removed, the image encoder cut to a stub, the word list cut to Thai and English: 3.00 → 2.15 GB in memory, a reload 1.91 → about 1.2 s, and every test answer byte-identical.</p></div></li>
+      <li class="rise next"><div class="entry step"><span class="date">2026-10-19</span><span class="ver">next</span><div class="num">8 → 3<small> false alarms</small></div><h3>Buddy, measured, not shipped yet</h3><p>Gemma 4 E2B tuned for Thai finance: Thai concepts 291 → 299 of 309, false alarms 8 → 3 of 74, at the same 2.05 GB.</p></div></li>
+    </ol>
 
     <div class="ledger">
-      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">116<small>/126</small></div><p>known mistakes caught on the 200-sentence corpus</p></div>
-      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">8<small>/74</small></div><p>correct sentences altered: the false alarms</p></div>
-      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">0.3<small> s</small></div><p>a check with the model warm: 200 checks in 59 s, one load included</p></div>
-      <div class="entry rise"><span class="date">2026-10-01</span><div class="num">0.40<small> s</small></div><p>for Gemma to translate ten words, against 1.8 s for Apple</p></div>
-      <div class="entry rise"><span class="date">2026-09-01</span><div class="num">19<small> MB</small></div><p>at rest. The model takes 2.15 GB while loaded, is released after ten idle minutes, and reloads in about 1.2 s</p></div>
-      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">2.05<small> GB</small></div><p>on disk, from 3.55. The model is repacked on your Mac, and every answer on the test corpora stays byte-identical</p></div>
-
       <div class="entry wide rise">
         <table class="models">
           <thead><tr><th>model</th><th>caught</th><th>false alarms</th><th>accuracy</th><th>per check</th></tr></thead>
@@ -1040,11 +1068,11 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
       <div class="ticket-main">
         <p class="eyebrow">Private beta · registration open · <span lang="th">เปิดรับสมัคร</span></p>
         <h2>Try Languagly <span class="hl">first</span>.</h2>
-        <p class="ticket-lede">We're looking for 8–12 people to use it in their real work for three weeks, and tell us what works and what doesn't. It's free.</p>
+        <p class="ticket-lede">We're looking for people to use it in their real work and tell us what works and what doesn't. It's free.</p>
         <ul class="beta-list">
           <li><b>Who:</b> Thai speakers who write English at work — finance especially.</li>
           <li><b>Your Mac:</b> Apple silicon (M1 or later) and macOS 15 or newer. Intel Macs can't run it.</li>
-          <li><b>What we ask:</b> use it every day for three weeks, and answer three short questions a week in a LINE group.</li>
+          <li><b>What we ask:</b> use it in your daily work, and answer a few short questions in a LINE group.</li>
         </ul>
         <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdyseIk_JkoHY5NktrhhmP4EWLlCd5V6NfQVZ-DakTPMLW_qw/viewform" target="_blank" rel="noopener">Register for the beta <span lang="th">· ลงทะเบียน</span></a>
         <p class="beta-note">A two-minute Google Form, in Thai and English. We choose testers to cover different kinds of Mac, so not everyone is picked — we'll email you if you are. Your answers are used only for this beta and deleted when it ends.</p>
@@ -1054,8 +1082,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <p class="stub-title">Beta pass</p>
         <p class="stub-th" lang="th">บัตรผู้ทดสอบ</p>
         <dl>
-          <div><dt>Seats</dt><dd>8–12</dd></div>
-          <div><dt>Length</dt><dd>3 weeks</dd></div>
+          <div><dt>Mac</dt><dd>Apple silicon</dd></div>
           <div><dt>Price</dt><dd>Free</dd></div>
         </dl>
       </div>
@@ -1203,7 +1230,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
   rv.addEventListener("click", () => rv.setAttribute("aria-expanded", rv.getAttribute("aria-expanded") === "true" ? "false" : "true"));
 
   // Rise in on scroll, and grow the chart when it is seen.
-  const grow = () => $$("#chart .bar").forEach(b => { b.querySelector("i").style.height = (+b.dataset.v / 26 * 120) + "px"; });
+  const grow = () => $$("#chart .bar").forEach(b => { b.querySelector("i").style.height = (+b.dataset.v / 100 * 150) + "px"; });
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return;

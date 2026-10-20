@@ -438,6 +438,7 @@ table.models tr:last-child td { border-bottom: 0; }
 table.models td.n { font-family: var(--mono); font-size: 14px; }
 table.models .shipped td { font-weight: 700; }
 table.models .retired td { color: var(--ink-faint); }
+.base-flag { display: inline-block; margin-left: 6px; padding: 1px 8px; border: 1.5px solid var(--ink-line); border-radius: 999px; font-family: var(--mono); font-size: 11px; letter-spacing: 0; text-transform: none; color: var(--ink-soft); background: #fff; vertical-align: 1px; }
 .pill { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green-ink); margin-left: 6px; }
 .pill.grey { background: var(--paper-2); color: var(--ink-faint); }
 .honest { margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -801,9 +802,9 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
       <div class="copy rise">
         <p class="eyebrow">⌘T · Translate · <span lang="th">แปล</span></p>
         <h2>Two answers, <span class="hl">side by side</span>.</h2>
-        <p class="lede">Apple's Translation framework answers on your Mac. With the local model on, Gemma 4 E2B translates the same English beside it, and usually first: 0.40 s against Apple's 1.8 s for ten words.</p>
-        <p>Each answer is a card, and the words the two disagree on are underlined, so you see where the meaning is in doubt. Settings → <i>Translate with</i> picks Apple + Gemma, Apple only, or Gemma only. Thai → English is always Apple.</p>
-        <p class="note">Sentences and answers on this page come from the app's 76-row Thai test corpus, as each engine answered them. Neither is always right: on its own, Gemma sometimes misspells Thai that Apple never does. That is why you see both.</p>
+        <p class="lede">Apple's Translation framework answers on your Mac. With the local model on, Buddy 1.0 — our model, built on Gemma 4 E2B — translates the same English beside it, and usually first: 0.43 s against Apple's 1.8 s for ten words.</p>
+        <p>Each answer is a card, and the words the two disagree on are underlined, so you see where the meaning is in doubt. Settings → <i>Translate with</i> picks Apple + Buddy, Apple only, or Buddy only. Thai → English is always Apple.</p>
+        <p class="note">Sentences and answers on this page come from the app's 76-row Thai test corpus, as each engine answered them. Neither is always right, which is why you see both.</p>
       </div>
 
       <div class="panel rise" aria-label="Example translation">
@@ -816,8 +817,8 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
           </div>
           <p class="source" id="tr-source">The Fed will keep shrinking its balance sheet.</p>
           <div class="answers">
-            <div class="answer"><div class="who">Apple <span>on-device</span></div><p lang="th" id="tr-apple">เฟดจะยังคงลดขนาด<mark>สมดุลของตน</mark>ต่อไป</p></div>
-            <div class="answer"><div class="who">Gemma 4 E2B <span>on-device</span></div><p lang="th" id="tr-gemma">เฟดจะยังคงลดขนาด<mark>งบดุล</mark>ต่อไป</p></div>
+            <div class="answer"><div class="who">Apple <span>on-device</span></div><p lang="th" id="tr-apple">เฟดจะยังคงลดขนาด<mark>สมดุล</mark>ของตนต่อไป</p></div>
+            <div class="answer"><div class="who">Buddy 1.0 <span>on-device</span></div><p lang="th" id="tr-gemma">เฟดจะยังคงลดขนาด<mark>งบดุล</mark>ของตนต่อไป</p></div>
           </div>
           <p class="why" id="tr-why">A balance sheet is งบดุล. Apple read “balance” in its everyday sense, สมดุล: equilibrium.</p>
         </div>
@@ -826,13 +827,13 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
 
     <div class="terms">
       <h3 class="rise">The everyday sense, or the term of art</h3>
-      <p class="rise">Most of what Apple misses is a single word read in its everyday sense. Across the 309 concepts in the corpus, Apple's answers carry 278 (90%) and Gemma's 291 (94%).</p>
+      <p class="rise">Most of what Apple misses is a single word read in its everyday sense. Across the 309 concepts in the corpus, Apple's answers carry 278 (90%) and Buddy's 299 (97%).</p>
       <div class="term-row">
-        <div class="term rise"><div class="en">hedge</div><div class="apple" lang="th">รั้วไม้</div><div class="gloss">a garden hedge</div><div class="gemma" lang="th">การป้องกันความเสี่ยง</div></div>
-        <div class="term rise"><div class="en">maturity</div><div class="apple" lang="th">ความเป็นผู้ใหญ่</div><div class="gloss">being grown up</div><div class="gemma" lang="th">อายุของตราสาร</div></div>
-        <div class="term rise"><div class="en">rally</div><div class="apple" lang="th">การชุมนุม</div><div class="gloss">a street rally</div><div class="gemma" lang="th">การปรับตัวขึ้น</div></div>
-        <div class="term rise"><div class="en">default</div><div class="apple" lang="th">ค่าเริ่มต้น</div><div class="gloss">a default setting</div><div class="gemma" lang="th">การผิดนัดชำระ</div></div>
-        <div class="term rise"><div class="en">bond</div><div class="apple" lang="th">พันธะ</div><div class="gloss">a tie, an obligation</div><div class="gemma" lang="th">พันธบัตร</div></div>
+        <div class="term rise"><div class="en">hedge</div><div class="apple" lang="th">รั้วไม้</div><div class="gloss">a garden hedge</div><div class="gemma" lang="th">เครื่องมือป้องกันความเสี่ยง</div></div>
+        <div class="term rise"><div class="en">maturity</div><div class="apple" lang="th">ความเป็นผู้ใหญ่</div><div class="gloss">being grown up</div><div class="gemma" lang="th">วันครบกำหนดไถ่ถอน</div></div>
+        <div class="term rise"><div class="en">rally</div><div class="apple" lang="th">การชุมนุม</div><div class="gloss">a street rally</div><div class="gemma" lang="th">การพุ่งขึ้นของราคา</div></div>
+        <div class="term rise"><div class="en">default</div><div class="apple" lang="th">ค่าเริ่มต้น</div><div class="gloss">a default setting</div><div class="gemma" lang="th">การผิดนัดชำระหนี้</div></div>
+        <div class="term rise"><div class="en">bond</div><div class="apple" lang="th">พันธะ</div><div class="gloss">a tie, an obligation</div><div class="gemma" lang="th">ตราสารหนี้</div></div>
       </div>
     </div>
   </div>
@@ -846,7 +847,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <h2>Proofread your own English, <span class="hl">gently</span>.</h2>
         <p class="lede">Select a sentence you wrote, anywhere, and press ⌘G. Languagly lists each mistake, then the corrected sentence, then the same sentence in five tenses as a reference.</p>
         <p>When your English is already right, it says so and changes nothing. Getting that right took measuring: an early prompt invented a mistake in every correct sentence it saw.</p>
-        <p class="note">Sentences and fixes from the 200-sentence test corpus, each made by the shipped model. The rule lines are written for this page.</p>
+        <p class="note">Sentences and fixes from the 200-sentence test corpus, each made by Buddy 1.0. The rule lines are written for this page.</p>
       </div>
 
       <div class="panel rise" aria-label="Example check">
@@ -877,8 +878,8 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <p class="eyebrow">Tap any word · <span lang="th">แตะคำไหนก็ได้</span></p>
         <h2><span class="hl">Guess first</span>, then check.</h2>
         <p class="lede">Tap a word for its dictionary entry, verb forms, synonyms and antonyms, and usage examples. Each example's Thai stays hidden until you tap it.</p>
-        <p>When the dictionary only lists a word under its root, Languagly says where the meaning came from, and the local model writes the word's own Thai meaning: right on 18 of 20 real words, in about 0.3 s each.</p>
-        <p class="note">The example sentence here is from the test corpus, with Gemma's Thai; in the app the examples are written for each word.</p>
+        <p>When the dictionary only lists a word under its root, Languagly says where the meaning came from, and the local model writes the word's own Thai meaning. Gemma 4 E2B, Buddy's base, was right on 18 of 20 real words, in about 0.3 s each; Buddy has not been measured on this yet.</p>
+        <p class="note">The example sentence here is from the test corpus, with Buddy's Thai; in the app the examples are written for each word.</p>
       </div>
       <div class="panel rise" aria-label="Example dictionary entry">
         <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Dictionary</span></div>
@@ -891,7 +892,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
           <div class="example">
             <p>Credit spreads <b>widened</b> to their highest level since March.</p>
             <button type="button" class="reveal" aria-expanded="false" id="reveal">
-              <span class="th-text" lang="th">ส่วนต่างอัตราเครดิตขยายตัวถึงระดับสูงสุดนับตั้งแต่เดือนมีนาคม</span>
+              <span class="th-text" lang="th">ส่วนต่างอัตราผลตอบแทนของตราสารหนี้กว้างขึ้นสู่ระดับสูงสุดนับตั้งแต่เดือนมีนาคม</span>
               <span class="hint">Your guess first. Tap to see the Thai</span>
             </button>
           </div>
@@ -943,24 +944,25 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     <p class="lede rise" style="margin-top:18px">A product that teaches has to be honest about how often it is right. Every figure here was measured on this app, on a Mac, and carries the date it was measured or first published.</p>
 
     <div class="ledger">
-      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">116<small>/126</small></div><p>known mistakes caught on the 200-sentence corpus</p></div>
-      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">8<small>/74</small></div><p>correct sentences altered: the false alarms</p></div>
-      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">0.3<small> s</small></div><p>a check with the model warm: 200 checks in 59 s, one load included</p></div>
-      <div class="entry rise"><span class="date">2026-10-01</span><div class="num">0.40<small> s</small></div><p>for Gemma to translate ten words, against 1.8 s for Apple</p></div>
-      <div class="entry rise"><span class="date">2026-09-01</span><div class="num">19<small> MB</small></div><p>at rest. The model takes 2.15 GB while loaded, is released after ten idle minutes, and reloads in about 1.2 s</p></div>
-      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">2.05<small> GB</small></div><p>on disk, from 3.55. The model is repacked on your Mac, and every answer on the test corpora stays byte-identical</p></div>
+      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">116<small>/126</small></div><p>known mistakes caught on the 200-sentence corpus</p></div>
+      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">3<small>/74</small></div><p>correct sentences altered: the false alarms. Gemma 4 E2B, Buddy's base, altered 8</p></div>
+      <div class="entry rise"><span class="date">2026-10-15</span><div class="num">0.3<small> s</small></div><p>a check with the model warm, timed on Gemma 4 E2B: 200 checks in 59 s, one load included. Buddy is the same size, at the same 4 bits</p></div>
+      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">0.43<small> s</small></div><p>for Buddy to translate ten words, against 1.8 s for Apple</p></div>
+      <div class="entry rise"><span class="date">2026-09-01</span><div class="num">19<small> MB</small></div><p>at rest. Buddy takes 2.16 GB while loaded, is released after ten idle minutes, and reloads in about 1.0 s</p></div>
+      <div class="entry rise"><span class="date">2026-10-19</span><div class="num">2.05<small> GB</small></div><p>to download, and on disk. Buddy comes packed: Gemma 4 E2B is 3.55 GB, and dropping its audio and image encoders and trimming its word list to Thai and English left every answer byte-identical</p></div>
 
       <div class="entry wide rise">
         <table class="models">
           <thead><tr><th>model</th><th>caught</th><th>false alarms</th><th>accuracy</th><th>per check</th></tr></thead>
           <tbody>
-            <tr class="shipped"><td>Gemma 4 E2B <span class="pill">shipped</span></td><td class="n">116/126</td><td class="n">8/74</td><td class="n">91%</td><td class="n">0.3 s</td></tr>
+            <tr class="shipped"><td>Buddy 1.0 <span class="pill">in the beta</span></td><td class="n">116/126</td><td class="n">3/74</td><td class="n">94%</td><td class="n">0.3 s</td></tr>
+            <tr class="retired"><td>Gemma 4 E2B <span class="pill grey">Buddy's base</span></td><td class="n">116/126</td><td class="n">8/74</td><td class="n">91%</td><td class="n">0.3 s</td></tr>
             <tr class="retired"><td>Gemma 3 4B <span class="pill grey">retired</span></td><td class="n">109/126</td><td class="n">12/74</td><td class="n">86%</td><td class="n">6.1 s</td></tr>
             <tr class="retired"><td>Qwen 3.5 4B <span class="pill grey">retired</span></td><td class="n">92/126</td><td class="n">1/74</td><td class="n">83%</td><td class="n">2.0 s</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="entry rise"><p style="margin:0"><b style="color:var(--ink)">Why the most precise model lost.</b> Qwen altered only one correct sentence, but missed 34 of the 126 mistakes, against Gemma's 10. For a learner a miss is the worse failure, because silence reads as approval.</p><p style="font-size:13px">The retired models were timed in August, before the instruction cache, so their times are not comparable.</p></div>
+      <div class="entry rise"><p style="margin:0"><b style="color:var(--ink)">Why the most precise model lost.</b> Qwen altered only one correct sentence, but missed 34 of the 126 mistakes, against Buddy's 10. For a learner a miss is the worse failure, because silence reads as approval.</p><p style="font-size:13px">The retired models were timed in August, before the instruction cache, so their times are not comparable.</p></div>
     </div>
 
     <div class="honest">
@@ -990,8 +992,8 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         </div>
         <div class="offline">
           <div>Translate · Apple <span>offline</span></div>
-          <div>Translate · Gemma 4 E2B <span>on your Mac</span></div>
-          <div>Check · Gemma 4 E2B <span>on your Mac</span></div>
+          <div>Translate · Buddy 1.0 <span>on your Mac</span></div>
+          <div>Check · Buddy 1.0 <span>on your Mac</span></div>
           <div>API providers <span>off</span></div>
         </div>
       </div>
@@ -1004,13 +1006,13 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     <div class="coming rise">
       <svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceHello"/></svg>
       <div>
-        <p class="eyebrow">Next · measured, not shipped yet</p>
-        <h2>Buddy, tuned for <span class="hl">Thai finance</span>.</h2>
-        <p style="color:var(--ink-soft);margin:0">The same Gemma 4 E2B, fine-tuned on Thai finance, at the same size and memory. It carries more of the meaning and raises fewer false alarms.</p>
+        <p class="eyebrow">The model · in the beta <span class="base-flag">base: Gemma 4 E2B</span></p>
+        <h2>Buddy 1.0, tuned for <span class="hl">Thai finance</span>.</h2>
+        <p style="color:var(--ink-soft);margin:0">Our own model, by Learn Level UP: Google's Gemma 4 E2B, fine-tuned on Thai finance, at the same size and memory. It carries more of the meaning than the model it is built on, and raises fewer false alarms. Published on <a href="https://huggingface.co/Learn57130/buddy-1.0">Hugging Face</a>.</p>
         <div class="vs">
-          <div><b>299/309</b>Thai concepts, against 291 today</div>
-          <div><b>3/74</b>false alarms, against 8 today</div>
-          <div><b>2.05 GB</b>the same size on disk</div>
+          <div><b>299/309</b>Thai concepts, against 291 for Gemma 4 E2B</div>
+          <div><b>3/74</b>false alarms, against 8</div>
+          <div><b>2.05 GB</b>the whole download</div>
         </div>
       </div>
     </div>
@@ -1024,7 +1026,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     <div class="reqs">
       <div class="req rise"><span class="opt">Required</span><h3>A Mac with Apple Silicon</h3><p>Built for arm64 only. The local model needs unified memory, so an Intel Mac is refused at install rather than given a feature that silently does nothing.</p></div>
       <div class="req rise"><span class="opt">Required</span><h3>macOS 15 Sequoia or newer</h3><p>Apple's on-device translation needs it. The first translation triggers Apple's one-time language download.</p></div>
-      <div class="req rise"><span class="opt">Optional · the local model</span><h3>3.6 GB, once</h3><p>Downloaded once and repacked to 2.05 GB, with about 5.6 GB free while that runs. It needs about 2.5 GB of free memory while loaded. Translation itself needs none of this.</p></div>
+      <div class="req rise"><span class="opt">Optional · the local model</span><h3>2.05 GB, once</h3><p>Buddy downloads once, already packed. It needs about 2.5 GB of free memory while loaded. Translation itself needs none of this.</p></div>
     </div>
   </div>
 </section>
@@ -1069,7 +1071,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <p>Your always language buddy. In private beta, not yet available to download — <a href="#beta">join the beta</a>.</p>
       </div>
       <div>
-        <p>Gemma is provided under and subject to the <a href="https://ai.google.dev/gemma/terms">Gemma Terms of Use</a> and the <a href="https://ai.google.dev/gemma/prohibited_use_policy">Prohibited Use Policy</a>. The weights are not bundled: the app downloads a community MLX conversion and repacks it on your Mac.</p>
+        <p>Buddy 1.0 is a modified version of Gemma 4 E2B, published by Learn Level UP on <a href="https://huggingface.co/Learn57130/buddy-1.0">Hugging Face</a>. Gemma is provided under and subject to the <a href="https://ai.google.dev/gemma/terms">Gemma Terms of Use</a> and the <a href="https://ai.google.dev/gemma/prohibited_use_policy">Prohibited Use Policy</a>. The weights are not bundled: the app downloads them once.</p>
         <p>Languagly is not affiliated with Apple or Google. Apple, Mac and macOS are trademarks of Apple Inc. © <span id="year">2026</span> Learn Level UP.</p>
       </div>
     </div>
@@ -1136,17 +1138,17 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
   // Translation examples: real answers from the Thai test corpus.
   const tr = [
     { en: "The Fed will keep shrinking its balance sheet.",
-      apple: "เฟดจะยังคงลดขนาด<mark>สมดุลของตน</mark>ต่อไป",
-      gemma: "เฟดจะยังคงลดขนาด<mark>งบดุล</mark>ต่อไป",
+      apple: "เฟดจะยังคงลดขนาด<mark>สมดุล</mark>ของตนต่อไป",
+      gemma: "เฟดจะยังคงลดขนาด<mark>งบดุล</mark>ของตนต่อไป",
       why: "A balance sheet is งบดุล. Apple read “balance” in its everyday sense, สมดุล: equilibrium." },
     { en: "Credit spreads widened to their highest level since March.",
-      apple: "<mark>ช่องว่างเครดิตกว้างขึ้น</mark>ถึงระดับสูงสุดนับตั้งแต่เดือนมีนาคม",
-      gemma: "<mark>ส่วนต่างอัตราเครดิตขยายตัว</mark>ถึงระดับสูงสุดนับตั้งแต่เดือนมีนาคม",
-      why: "A credit spread is a ส่วนต่าง, a difference between two rates. ช่องว่าง is a gap." },
+      apple: "<mark>ช่องว่างเครดิต</mark>กว้างขึ้น<mark>ถึง</mark>ระดับสูงสุดนับตั้งแต่เดือนมีนาคม",
+      gemma: "<mark>ส่วนต่างอัตราผลตอบแทนของตราสารหนี้</mark>กว้างขึ้น<mark>สู่</mark>ระดับสูงสุดนับตั้งแต่เดือนมีนาคม",
+      why: "A credit spread is a ส่วนต่าง, the difference between two yields, and Buddy spells out whose. ช่องว่าง is just a gap." },
     { en: "Foreign investors were net sellers of Thai stocks for a fifth week.",
-      apple: "นักลงทุนต่างชาติ<mark>เป็นผู้ขายหุ้นไทยเป็นรายได้สุทธิ</mark>เป็นสัปดาห์ที่ห้า",
-      gemma: "นักลงทุนต่างชาติ<mark>ขายหุ้นไทยสุทธิมา</mark>เป็นสัปดาห์ที่ห้า<mark>แล้ว</mark>",
-      why: "“Net sellers” became รายได้สุทธิ, net income, in Apple's answer. Gemma kept the meaning: they sold, net." }
+      apple: "นักลงทุนต่างชาติ<mark>เป็นผู้ขายหุ้นไทยเป็นรายได้สุทธิ</mark>เป็นสัปดาห์ที่<mark>ห้า</mark>",
+      gemma: "นักลงทุนต่างชาติ<mark>ขายสุทธิหุ้นไทย</mark>เป็นสัปดาห์ที่<mark> 5 ติดต่อกัน</mark>",
+      why: "“Net sellers” became รายได้สุทธิ, net income, in Apple's answer. Buddy kept the meaning: they sold, net." }
   ];
   $$("[data-ex]").forEach(b => b.addEventListener("click", () => {
     const e = tr[+b.dataset.ex];
@@ -1157,7 +1159,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     $$("[data-ex]").forEach(o => o.setAttribute("aria-selected", String(o === b)));
   }));
 
-  // Check examples: corpus sentences and the shipped model's fixes.
+  // Check examples: corpus sentences and Buddy 1.0's fixes.
   const ck = [
     { input: 'The fund <span class="bad">carry</span> too much risk.',
       type: "third-person -s", rule: 'A singular subject takes -s in the present simple: <s>carry</s> → <ins>carries</ins>.',

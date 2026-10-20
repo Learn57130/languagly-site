@@ -367,6 +367,7 @@ section { position: relative; padding: 110px 0; }
 .fixed small { display: block; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--green-ink); }
 .clean { display: flex; align-items: center; gap: 12px; background: var(--green-soft); border-radius: 14px; padding: 14px; font-weight: 600; }
 .clean svg { width: 44px; flex: none; }
+svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
 .tenses { border: 1px dashed var(--line); border-radius: 14px; padding: 10px 14px; }
 .tenses .cap { font-family: var(--mono); font-size: 12px; color: var(--ink-faint); margin-bottom: 4px; }
 .tenses ol { list-style: none; margin: 0; padding: 0; }
@@ -440,6 +441,11 @@ table.models .shipped td { font-weight: 700; }
 table.models .retired td { color: var(--ink-faint); }
 .pill { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green-ink); margin-left: 6px; }
 .pill.grey { background: var(--paper-2); color: var(--ink-faint); }
+.pill.next { background: var(--sun); color: #13254f; }
+table.models .next td { font-weight: 700; }
+table.models .next td.n { color: var(--blue); }
+table.models td .sub { display: block; font-weight: 400; font-size: 12.5px; color: var(--ink-faint); }
+.offline div.soon { border-style: dashed; background: rgba(255, 255, 255, .06); }
 .honest { margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .honest div { font-size: 15px; color: var(--ink-soft); padding: 16px 18px; border-radius: 16px; border: 1px dashed var(--line); background: var(--card); }
 .honest b { color: var(--ink); }
@@ -696,6 +702,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     <path id="cloud" d="M30 72 C18 72 12 64 14 56 C15.5 49 21.5 45 27.5 46 C27.5 35 37 28 47 30 C53 21.5 66.5 21.5 72 30 C82.5 30 89.5 39 86.5 48 C93 51 94 62 88 68 C85 71 81 72 77 72 Z"/>
     <path id="tail" d="M33 70 L27 82 C26.5 83.5 28 84.5 29.2 83.6 L44 71 Z"/>
     <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#ffc21a"/></linearGradient>
+    <linearGradient id="skyTile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3d8bff"/><stop offset="1" stop-color="#1554e8"/></linearGradient>
     <path id="bubTailR" d="M4 0 H20 C22.5 0 24 1.5 24 4 V16 C24 18.5 22.5 20 20 20 H20 V25 L14 20 H4 C1.5 20 0 18.5 0 16 V4 C0 1.5 1.5 0 4 0 Z"/>
     <path id="bubTailL" d="M4 0 H20 C22.5 0 24 1.5 24 4 V16 C24 18.5 22.5 20 20 20 H10 L4 25 V20 H4 C1.5 20 0 18.5 0 16 V4 C0 1.5 1.5 0 4 0 Z"/>
     <path id="bubTailM" d="M4 0 H20 C22.5 0 24 1.5 24 4 V16 C24 18.5 22.5 20 20 20 H15 L12 25 L9 20 H4 C1.5 20 0 18.5 0 16 V4 C0 1.5 1.5 0 4 0 Z"/>
@@ -914,7 +921,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
           </div>
           <div class="bar-labels"><span>August</span><span>September</span></div>
           <div class="proud-note">
-            <svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceProud"/></svg>
+            <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg>
             <span>26 agreement mistakes in August, none in September, on the developer's own check history.</span>
           </div>
         </div>
@@ -951,12 +958,13 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
           <thead><tr><th>model</th><th>caught</th><th>false alarms</th><th>accuracy</th><th>per check</th></tr></thead>
           <tbody>
             <tr class="shipped"><td>Gemma 4 E2B <span class="pill">shipped</span></td><td class="n">116/126</td><td class="n">8/74</td><td class="n">91%</td><td class="n">0.3 s</td></tr>
+            <tr class="next"><td>Buddy <span class="pill next">next</span><span class="sub">Gemma 4 E2B, tuned for Thai finance</span></td><td class="n">116/126</td><td class="n">3/74</td><td class="n">94%</td><td class="n" title="Not timed yet">—</td></tr>
             <tr class="retired"><td>Gemma 3 4B <span class="pill grey">retired</span></td><td class="n">109/126</td><td class="n">12/74</td><td class="n">86%</td><td class="n">6.1 s</td></tr>
             <tr class="retired"><td>Qwen 3.5 4B <span class="pill grey">retired</span></td><td class="n">92/126</td><td class="n">1/74</td><td class="n">83%</td><td class="n">2.0 s</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="entry rise"><p style="margin:0"><b style="color:var(--ink)">Why the most precise model lost.</b> Qwen altered only one correct sentence, but missed 34 of the 126 mistakes, against Gemma's 10. For a learner a miss is the worse failure, because silence reads as approval.</p><p style="font-size:13px">The retired models were timed in August, before the instruction cache, so their times are not comparable.</p></div>
+      <div class="entry rise"><p style="margin:0"><b style="color:var(--ink)">Why the most precise model lost.</b> Qwen altered only one correct sentence, but missed 34 of the 126 mistakes, against Gemma's 10. For a learner a miss is the worse failure, because silence reads as approval.</p><p style="font-size:13px">Buddy was measured on 2026-10-19 and its checks are not timed yet. The retired models were timed in August, before the instruction cache, so their times are not comparable.</p></div>
     </div>
 
     <div class="honest">
@@ -988,6 +996,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
           <div>Translate · Apple <span>offline</span></div>
           <div>Translate · Gemma 4 E2B <span>on your Mac</span></div>
           <div>Check · Gemma 4 E2B <span>on your Mac</span></div>
+          <div class="soon">Buddy · tuned for Thai finance <span>next · on your Mac</span></div>
           <div>API providers <span>off</span></div>
         </div>
       </div>
@@ -998,7 +1007,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
 <section style="padding-top: 20px">
   <div class="wrap">
     <div class="coming rise">
-      <svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceHello"/></svg>
+      <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceHello"/></svg>
       <div>
         <p class="eyebrow">Next · measured, not shipped yet</p>
         <h2>Buddy, tuned for <span class="hl">Thai finance</span>.</h2>
@@ -1041,7 +1050,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <p class="beta-note">A two-minute Google Form, in Thai and English. We choose testers to cover different kinds of Mac, so not everyone is picked — we'll email you if you are. Your answers are used only for this beta and deleted when it ends.</p>
       </div>
       <div class="ticket-stub" aria-hidden="true">
-        <svg viewBox="10 20 86 66"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceProud"/></svg>
+        <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg>
         <p class="stub-title">Beta pass</p>
         <p class="stub-th" lang="th">บัตรผู้ทดสอบ</p>
         <dl>
@@ -1172,7 +1181,7 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     $("#ck-input").innerHTML = c.input;
     const res = $("#ck-result");
     if (c.clean) {
-      res.innerHTML = '<div class="clean"><svg viewBox="10 20 86 66" aria-hidden="true"><use href="#tail" fill="#3d8bff"/><use href="#cloud" fill="#3d8bff"/><use href="#faceProud"/></svg><span>Looks right. Nothing to fix, so nothing changed.</span></div>';
+      res.innerHTML = '<div class="clean"><svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg><span>Looks right. Nothing to fix, so nothing changed.</span></div>';
     } else {
       res.innerHTML = '<div class="issue"><span class="tag">' + c.type + '</span><p>' + c.rule + '</p></div>' +
         '<div class="fixed"><small>corrected</small>' + c.fixed + '</div>';

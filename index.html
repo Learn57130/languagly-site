@@ -407,14 +407,36 @@ svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
 .feat .ico svg { width: 22px; height: 22px; }
 .feat h3 { font-size: 18px; margin-bottom: 6px; }
 .feat p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
-.chart { display: flex; align-items: flex-end; gap: 22px; height: 170px; padding: 10px 6px 0; border-bottom: 2px solid var(--line); }
-.bar { flex: 1; display: grid; justify-items: center; align-content: end; gap: 8px; height: 100%; }
-.bar i { width: 100%; max-width: 96px; border-radius: 12px 12px 4px 4px; background: linear-gradient(180deg, #3d8bff, #1554e8); height: 0; transition: height 1.2s cubic-bezier(.2, .8, .2, 1); }
-.bar b { font-family: var(--mono); font-weight: 500; font-size: 15px; }
 .panel-bar .illus { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; color: var(--stamp); border: 2px solid var(--stamp); border-radius: 6px; padding: 1px 7px; rotate: -4deg; }
-.bar-labels { display: flex; gap: 22px; padding: 8px 6px 0; font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
-.bar-labels span { flex: 1; text-align: center; }
 .proud-note { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-weight: 600; }
+.dash { --ok: #28a745; --earlier: #a7afbf; --later: #ff9500; }
+.dash-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 6px; }
+.dash-h b { font-size: 15.5px; }
+.dash-h span { font-size: 12px; color: var(--ink-faint); }
+.clean-chart { position: relative; }
+.clean-chart svg { width: 100%; height: auto; overflow: visible; font-family: var(--body); }
+.clean-chart .grid line { stroke: var(--line); stroke-width: 1; }
+.clean-chart .grid text, .clean-chart .xl text { font-size: 11.5px; fill: var(--ink-faint); }
+.clean-chart .line { fill: none; stroke: var(--ok); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(.3, .7, .2, 1); }
+.clean-chart.drawn .line { stroke-dashoffset: 0; }
+.clean-chart .dots circle { fill: var(--ok); }
+.clean-chart .dots circle.faint { opacity: .35; }
+.clean-chart .rule { stroke: var(--ink-faint); stroke-width: 1; opacity: 0; transition: opacity .15s; }
+.clean-chart .hit { fill: transparent; cursor: default; }
+.clean-chart .tip { position: absolute; top: -6px; pointer-events: none; translate: -50% -100%; opacity: 0; transition: opacity .15s; background: var(--card); border: 1.5px solid var(--ink-line); border-radius: 8px; padding: 4px 9px; font-size: 12.5px; font-weight: 600; white-space: nowrap; box-shadow: 2px 2px 0 var(--ink-line); }
+.clean-chart .tip.on { opacity: 1; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--ink-faint); margin-bottom: 6px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; }
+.legend i.e, .types i.e { background: var(--earlier); }
+.legend i.l, .types i.l { background: var(--later); }
+.types { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.types li { display: grid; grid-template-columns: 128px 1fr 56px; align-items: center; gap: 8px; font-size: 14px; }
+.types .pair { display: grid; gap: 2px; }
+.types .pair i { display: block; height: 6px; border-radius: 3px; }
+.types b { font-family: var(--mono); font-weight: 500; font-size: 12.5px; text-align: right; color: var(--ink-faint); }
+.types b.down { color: var(--ok); }
+.types b.up { color: #e5484d; }
 .proud-note svg { width: 46px; flex: none; }
 
 /* Measured — a lab notebook */
@@ -432,23 +454,38 @@ svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
 .entry p { margin: 8px 0 0; font-size: 15px; color: var(--ink-soft); }
 .entry .date { position: absolute; top: 14px; right: 16px; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
 .entry.wide { grid-column: span 2; }
-.timeline { list-style: none; margin: 44px 0 0; padding: 0; position: relative; display: grid; grid-template-columns: 1fr 1fr; column-gap: 68px; row-gap: 22px; }
-.timeline::before { content: ""; position: absolute; top: 10px; bottom: 10px; left: 50%; width: 3px; margin-left: -1.5px; background: repeating-linear-gradient(180deg, var(--ink-line) 0 9px, transparent 9px 16px); opacity: .4; }
-.timeline li { position: relative; }
-.timeline li:nth-child(even) { margin-top: 64px; margin-bottom: -64px; }
-.timeline li::before { content: ""; position: absolute; top: 24px; width: 18px; height: 18px; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink-line); z-index: 1; }
-.timeline li:nth-child(odd)::before { right: -44px; }
-.timeline li:nth-child(even)::before { left: -44px; }
-.timeline li:last-child { margin-bottom: 0; }
-.step { height: 100%; }
+.tl-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-top: 40px; }
+.tl-hint { font-family: var(--hand); font-size: 17px; color: var(--blue); rotate: -2deg; }
+.tl-nav { display: flex; gap: 10px; }
+.tl-nav button { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--ink-line); background: var(--card); color: var(--ink-line); font: 700 18px var(--body); cursor: pointer; box-shadow: 3px 3px 0 var(--ink-line); transition: translate .15s, box-shadow .15s, opacity .2s; }
+.tl-nav button:hover:not(:disabled) { translate: -1px -1px; box-shadow: 4px 4px 0 var(--ink-line); background: var(--sun); }
+.tl-nav button:active:not(:disabled) { translate: 2px 2px; box-shadow: 1px 1px 0 var(--ink-line); }
+.tl-nav button:disabled { opacity: .3; cursor: default; }
+.tl-nav button:focus-visible, .timeline:focus-visible { outline: 3px solid var(--sun-deep); outline-offset: 3px; }
+.timeline {
+  list-style: none; margin: 10px -4px 0; padding: 52px 4px 26px;
+  display: flex; gap: 22px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: 4px; scrollbar-width: thin;
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent);
+  border-radius: 12px;
+}
+.timeline.scrolled { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 56px), transparent); }
+.timeline.end { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px); mask-image: linear-gradient(90deg, transparent, #000 40px); }
+.timeline.scrolled.end { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px); mask-image: linear-gradient(90deg, transparent, #000 40px); }
+.timeline li { position: relative; flex: 0 0 clamp(250px, 26vw, 292px); display: flex; scroll-snap-align: start; }
+.timeline li::after { content: ""; position: absolute; top: -32px; left: 0; right: -22px; height: 3px; background: repeating-linear-gradient(90deg, var(--ink-line) 0 9px, transparent 9px 16px); opacity: .45; }
+.timeline li:last-child::after { right: 50%; }
+.timeline li::before { content: ""; position: absolute; top: -40px; left: 22px; width: 19px; height: 19px; border-radius: 50%; background: var(--sun); border: 3px solid var(--ink-line); z-index: 1; }
+.step { flex: 1; }
 .step .ver { display: inline-block; font-family: var(--mono); font-size: 11.5px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); margin-bottom: 10px; }
-.step .num { font-size: clamp(26px, 3vw, 34px); }
+.step .num { font-size: clamp(26px, 2.6vw, 32px); }
 .step h3 { font-size: 17px; margin: 6px 0 0; }
 .step p { font-size: 14.5px; }
 .timeline li.next::before { background: #fff; border-style: dashed; }
 .timeline li.next .step { border-style: dashed; border-width: 2px; }
 .timeline li.next .ver { background: var(--sun); color: #13254f; }
-.timeline + .ledger { margin-top: 110px; }
+.tl-head + .timeline + .ledger { margin-top: 34px; }
 table.models { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 6px; }
 table.models th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--ink-faint); padding: 6px 8px; border-bottom: 1px solid var(--line); }
 table.models td { padding: 9px 8px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
@@ -528,11 +565,6 @@ footer p { margin: 8px 0 0; max-width: 62ch; }
   .hero { padding-bottom: 100px; gap: 10px; }
   .buddy { width: min(380px, 100%); }
   .ledger { grid-template-columns: 1fr 1fr; }
-  .timeline { grid-template-columns: 1fr; padding-left: 34px; }
-  .timeline::before { left: 10px; }
-  .timeline li:nth-child(even) { margin: 0; }
-  .timeline li:nth-child(odd)::before, .timeline li:nth-child(even)::before { left: -33px; right: auto; }
-  .timeline + .ledger { margin-top: 44px; }
   .term-row { grid-template-columns: repeat(3, 1fr); }
   .practice-grid, .reqs { grid-template-columns: 1fr 1fr; }
 }
@@ -548,6 +580,7 @@ footer p { margin: 8px 0 0; max-width: 62ch; }
   .coming svg { width: 110px; }
   .panel-body { padding: 16px; }
   .tenses li { grid-template-columns: 1fr; gap: 0; }
+  .types li { grid-template-columns: 104px 1fr 50px; font-size: 13px; }
   table.models { font-size: 13.5px; }
   table.models th, table.models td { padding: 7px 4px; }
 }
@@ -934,19 +967,27 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
         <h2>Your mistakes become your <span class="hl">lessons</span>.</h2>
         <p class="lede">Every check is kept. Practice is built from your own corrections and spaced out so it sticks, and the dashboard shows you getting better: clean rate by week, and mistakes by type.</p>
       </div>
-      <div class="panel rise" aria-label="Illustration of the clean-rate chart">
-        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Analytics · clean checks by week</span><span class="illus">illustration</span></div>
-        <div class="panel-body">
-          <div class="chart" id="chart">
-            <div class="bar" data-v="34"><i></i></div>
-            <div class="bar" data-v="48"><i></i></div>
-            <div class="bar" data-v="61"><i></i></div>
-            <div class="bar" data-v="77"><i></i></div>
+      <div class="panel rise" aria-label="The analytics dashboard, with sample data">
+        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Analytics</span><span class="illus">sample data</span></div>
+        <div class="panel-body dash">
+          <div class="dash-h"><b>Checks that came back clean</b><span>by week · faded: under 5 checks</span></div>
+          <div class="clean-chart" id="clean-chart">
+            <svg viewBox="0 0 520 184" role="img" aria-label="Sample data: the share of checks that came back clean rises from 33% to 73% over six weeks">
+              <g class="grid"><line x1="14" x2="478" y1="14" y2="14"/><text x="486" y="18">100%</text><line x1="14" x2="478" y1="82.0" y2="82.0"/><text x="486" y="86.0">50%</text><line x1="14" x2="478" y1="150" y2="150"/><text x="486" y="154">0%</text></g>
+              <line class="rule" x1="0" x2="0" y1="10" y2="152"/>
+              <path class="line" d="M34 104.7 L118 93.3 L286 72.3 L370 55.8 L454 50.3" pathLength="1"/>
+              <g class="dots"><circle cx="34" cy="104.7" r="5.5" class=""/><circle cx="118" cy="93.3" r="5.5" class=""/><circle cx="202" cy="82.0" r="4" class="faint"/><circle cx="286" cy="72.3" r="5.5" class=""/><circle cx="370" cy="55.8" r="5.5" class=""/><circle cx="454" cy="50.3" r="5.5" class=""/></g>
+              <g class="xl"><text x="34" y="176" text-anchor="middle">Sep 1</text><text x="118" y="176" text-anchor="middle">Sep 8</text><text x="202" y="176" text-anchor="middle">Sep 15</text><text x="286" y="176" text-anchor="middle">Sep 22</text><text x="370" y="176" text-anchor="middle">Sep 29</text><text x="454" y="176" text-anchor="middle">Oct 6</text></g>
+              <g><rect class="hit" x="-8.0" y="0" width="84" height="160" data-x="34" data-tip="Sep 1 · 3 of 9 clean"/><rect class="hit" x="76.0" y="0" width="84" height="160" data-x="118" data-tip="Sep 8 · 5 of 12 clean"/><rect class="hit" x="160.0" y="0" width="84" height="160" data-x="202" data-tip="Sep 15 · 2 of 4 clean — too few to read much into"/><rect class="hit" x="244.0" y="0" width="84" height="160" data-x="286" data-tip="Sep 22 · 8 of 14 clean"/><rect class="hit" x="328.0" y="0" width="84" height="160" data-x="370" data-tip="Sep 29 · 9 of 13 clean"/><rect class="hit" x="412.0" y="0" width="84" height="160" data-x="454" data-tip="Oct 6 · 11 of 15 clean"/></g>
+            </svg>
+            <div class="tip" role="status"></div>
           </div>
-          <div class="bar-labels"><span>week 1</span><span>week 2</span><span>week 3</span><span>week 4</span></div>
+          <div class="dash-h" style="margin-top:14px"><b>Your mistakes by type</b><span>earlier vs later half</span></div>
+          <div class="legend"><span><i class="e"></i>Sep 1 – Sep 21</span><span><i class="l"></i>Sep 22 – Oct 12</span></div>
+          <ul class="types"><li><span class="k">singular / plural</span><span class="pair"><i class="e" style="width:100%"></i><i class="l" style="width:33%"></i></span><b class="down">9 → 3</b></li><li><span class="k">verb form</span><span class="pair"><i class="e" style="width:78%"></i><i class="l" style="width:44%"></i></span><b class="down">7 → 4</b></li><li><span class="k">missing word</span><span class="pair"><i class="e" style="width:67%"></i><i class="l" style="width:22%"></i></span><b class="down">6 → 2</b></li><li><span class="k">capitalization</span><span class="pair"><i class="e" style="width:44%"></i><i class="l" style="width:11%"></i></span><b class="down">4 → 1</b></li><li><span class="k">word choice</span><span class="pair"><i class="e" style="width:22%"></i><i class="l" style="width:33%"></i></span><b class="up">2 → 3</b></li></ul>
           <div class="proud-note">
             <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg>
-            <span>An illustration, not real data. In the app this chart is your own history: the share of your checks that came back clean, week by week.</span>
+            <span>Sample data, drawn the way the app draws it. In the app, both charts come from your own checks.</span>
           </div>
         </div>
       </div>
@@ -969,7 +1010,11 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     <h2 class="rise">How the numbers <span class="hl">got here</span>.</h2>
     <p class="lede rise" style="margin-top:18px">A product that teaches has to be honest about how often it is right. Each step below was measured on this app, on a Mac, and carries the date of the release that shipped it, or the day it was measured.</p>
 
-    <ol class="timeline">
+    <div class="tl-head rise">
+      <span class="tl-hint">August → October, oldest first</span>
+      <div class="tl-nav"><button type="button" id="tl-prev" aria-label="Earlier steps" disabled>←</button><button type="button" id="tl-next" aria-label="Later steps">→</button></div>
+    </div>
+    <ol class="timeline" id="timeline" tabindex="0" aria-label="Development timeline, scrolls sideways">
       <li class="rise"><div class="entry step"><span class="date">2026-08-25</span><span class="ver">v2.20</span><div class="num">6.1 → 1.4<small> s</small></div><h3>Gemma 4 E2B replaces Gemma 3 4B</h3><p>A check takes 1.4 s instead of 6.1 s, and accuracy on the 200-sentence corpus goes from 86% to 91%.</p></div></li>
       <li class="rise"><div class="entry step"><span class="date">2026-08-31</span><span class="ver">v2.31</span><div class="num">9 → 5<small> rules</small></div><h3>Four checker rules deleted</h3><p>Rules that refuse a bad correction. On 211 scored sentences four never fired once, and one refused a real fix.</p></div></li>
       <li class="rise"><div class="entry step"><span class="date">2026-09-01</span><span class="ver">v2.32</span><div class="num">2,980 → 19<small> MB</small></div><h3>The model rests when you do</h3><p>It is released after ten idle minutes and loaded again when you need it.</p></div></li>
@@ -1230,12 +1275,41 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
   rv.addEventListener("click", () => rv.setAttribute("aria-expanded", rv.getAttribute("aria-expanded") === "true" ? "false" : "true"));
 
   // Rise in on scroll, and grow the chart when it is seen.
-  const grow = () => $$("#chart .bar").forEach(b => { b.querySelector("i").style.height = (+b.dataset.v / 100 * 150) + "px"; });
+  const tl = $("#timeline"), prev = $("#tl-prev"), next = $("#tl-next");
+  const step = () => { const li = tl.querySelector("li"); return li ? li.getBoundingClientRect().width + 22 : 300; };
+  const sync = () => {
+    const max = tl.scrollWidth - tl.clientWidth - 2;
+    tl.classList.toggle("scrolled", tl.scrollLeft > 2);
+    tl.classList.toggle("end", tl.scrollLeft >= max);
+    prev.disabled = tl.scrollLeft <= 2;
+    next.disabled = tl.scrollLeft >= max;
+  };
+  prev.addEventListener("click", () => tl.scrollBy({ left: -step(), behavior: "smooth" }));
+  next.addEventListener("click", () => tl.scrollBy({ left: step(), behavior: "smooth" }));
+  tl.addEventListener("scroll", sync, { passive: true });
+  addEventListener("resize", sync);
+  sync();
+
+  const cc = $("#clean-chart");
+  const grow = () => cc.classList.add("drawn");
+  const tip = cc.querySelector(".tip"), rule = cc.querySelector(".rule"), svg = cc.querySelector("svg");
+  cc.querySelectorAll(".hit").forEach(h => {
+    const show = () => {
+      const x = +h.dataset.x;
+      rule.setAttribute("x1", x); rule.setAttribute("x2", x); rule.style.opacity = 1;
+      tip.textContent = h.dataset.tip;
+      tip.style.left = (x / 520 * svg.getBoundingClientRect().width) + "px";
+      tip.classList.add("on");
+    };
+    h.addEventListener("mouseenter", show);
+    h.addEventListener("click", show);
+  });
+  svg.addEventListener("mouseleave", () => { rule.style.opacity = 0; tip.classList.remove("on"); });
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return;
       e.target.classList.add("in");
-      if (e.target.querySelector && e.target.querySelector("#chart")) grow();
+      if (e.target.querySelector && e.target.querySelector("#clean-chart")) grow();
       io.unobserve(e.target);
     }), { threshold: .12, rootMargin: "0px 0px -40px 0px" });
     $$(".rise").forEach(el => io.observe(el));

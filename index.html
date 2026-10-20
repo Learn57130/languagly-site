@@ -409,34 +409,73 @@ svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
 .feat p { margin: 0; color: var(--ink-soft); font-size: 15.5px; }
 .panel-bar .illus { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .06em; color: var(--stamp); border: 2px solid var(--stamp); border-radius: 6px; padding: 1px 7px; rotate: -4deg; }
 .proud-note { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-weight: 600; }
-.dash { --ok: #28a745; --earlier: #a7afbf; --later: #ff9500; }
-.dash-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 6px; }
-.dash-h b { font-size: 15.5px; }
-.dash-h span { font-size: 12px; color: var(--ink-faint); }
-.clean-chart { position: relative; }
-.clean-chart svg { width: 100%; height: auto; overflow: visible; font-family: var(--body); }
-.clean-chart .grid line { stroke: var(--line); stroke-width: 1; }
-.clean-chart .grid text, .clean-chart .xl text { font-size: 11.5px; fill: var(--ink-faint); }
-.clean-chart .line { fill: none; stroke: var(--ok); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(.3, .7, .2, 1); }
-.clean-chart.drawn .line { stroke-dashoffset: 0; }
-.clean-chart .dots circle { fill: var(--ok); }
-.clean-chart .dots circle.faint { opacity: .35; }
-.clean-chart .rule { stroke: var(--ink-faint); stroke-width: 1; opacity: 0; transition: opacity .15s; }
-.clean-chart .hit { fill: transparent; cursor: default; }
-.clean-chart .tip { position: absolute; top: -6px; pointer-events: none; translate: -50% -100%; opacity: 0; transition: opacity .15s; background: var(--card); border: 1.5px solid var(--ink-line); border-radius: 8px; padding: 4px 9px; font-size: 12.5px; font-weight: 600; white-space: nowrap; box-shadow: 2px 2px 0 var(--ink-line); }
-.clean-chart .tip.on { opacity: 1; }
-.legend { display: flex; gap: 14px; font-size: 12px; color: var(--ink-faint); margin-bottom: 6px; }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend i { width: 10px; height: 10px; border-radius: 3px; }
-.legend i.e, .types i.e { background: var(--earlier); }
-.legend i.l, .types i.l { background: var(--later); }
-.types { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
-.types li { display: grid; grid-template-columns: 128px 1fr 56px; align-items: center; gap: 8px; font-size: 14px; }
-.types .pair { display: grid; gap: 2px; }
-.types .pair i { display: block; height: 6px; border-radius: 3px; }
-.types b { font-family: var(--mono); font-weight: 500; font-size: 12.5px; text-align: right; color: var(--ink-faint); }
-.types b.down { color: var(--ok); }
-.types b.up { color: #e5484d; }
+.practice-copy { max-width: 720px; }
+.appwin { margin: 34px auto 0; max-width: 1000px; border: 2px solid var(--ink-line); border-radius: 14px; box-shadow: 7px 7px 0 var(--ink-line); background: #1f1f21; overflow: hidden; --aw-text: #f5f5f7; --aw-2: rgba(235, 235, 245, .62); --aw-3: rgba(235, 235, 245, .32); --aw-line: rgba(255, 255, 255, .09); --aw-blue: #0a84ff; --aw-purple: #bf5af2; --aw-green: #30d158; --aw-orange: #ff9f0a; --aw-gray: #98989d; --aw-red: #ff453a; }
+.appwin > .win-bar, .appwin > .win-body { background: #1f1f21; color: var(--aw-text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.win-bar { display: flex; align-items: center; gap: 14px; padding: 11px 14px; font-size: 13px; font-weight: 600; color: var(--aw-2); border-bottom: 1px solid var(--aw-line); }
+.win-bar .dots { display: flex; gap: 7px; }
+.win-bar .dots i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+.win-bar .dots i:nth-child(2) { background: #febc2e; }
+.win-bar .dots i:nth-child(3) { background: #28c840; }
+.win-body { overflow-x: auto; overscroll-behavior-x: contain; }
+.win-inner { min-width: 720px; padding: 18px 20px 20px; }
+.aw-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.aw-head h3 { font-family: inherit; font-size: 26px; font-weight: 700; line-height: 1.2; letter-spacing: .01em; margin: 0; }
+.aw-tools { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.seg { display: inline-flex; background: rgba(255, 255, 255, .09); border-radius: 7px; padding: 2px; }
+.seg span { padding: 3px 14px; border-radius: 5px; }
+.seg span + span { box-shadow: -1px 0 0 rgba(255, 255, 255, .12); }
+.seg span.on { background: var(--aw-blue); color: #fff; box-shadow: none; }
+.aw-btn { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 7px; background: rgba(255, 255, 255, .11); }
+.aw-btn svg { width: 14px; height: 14px; }
+.aw-sub { margin: 2px 0 14px; font-size: 13.5px; color: var(--aw-2); }
+.aw-insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.ins { display: grid; gap: 3px; padding: 10px 12px 10px 14px; border-radius: 8px; background: rgba(255, 255, 255, .06); box-shadow: inset 3px 0 0 var(--tone); }
+.ins.green { --tone: var(--aw-green); }
+.ins.orange { --tone: var(--aw-orange); }
+.ins b { font-size: 13.5px; font-weight: 600; }
+.ins span { font-size: 11.5px; color: var(--aw-2); }
+.aw-sec { background: rgba(255, 255, 255, .045); border-radius: 10px; padding: 12px; }
+.aw-h { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 8px; margin-bottom: 6px; }
+.aw-h b { font-size: 13.5px; font-weight: 700; }
+.aw-h span { font-size: 10.5px; color: var(--aw-3); }
+.aw-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.aw-chart { position: relative; }
+.aw-chart svg { width: 100%; height: auto; overflow: visible; display: block; font-family: inherit; }
+.aw-chart .grid line { stroke: var(--aw-line); }
+.aw-chart text { font-size: 11px; fill: var(--aw-2); }
+.aw-chart .months line.m { stroke: var(--aw-3); stroke-dasharray: 3 3; }
+.aw-chart .bar.tr { fill: var(--aw-blue); }
+.aw-chart .bar.ch { fill: var(--aw-purple); }
+.aw-chart .line { fill: none; stroke: var(--aw-green); stroke-width: 2; stroke-linejoin: round; }
+.aw-chart .dots circle { fill: var(--aw-green); }
+.aw-chart .dots circle.faint { opacity: .35; }
+.aw-chart .rule { stroke: rgba(255, 255, 255, .28); opacity: 0; }
+.aw-chart .hit { fill: transparent; }
+.aw-chart.hover .rule { opacity: 1; }
+.aw-tip { position: absolute; top: 0; translate: -50% -100%; pointer-events: none; opacity: 0; display: grid; gap: 1px; padding: 5px 8px; border-radius: 6px; background: rgba(58, 58, 62, .96); border: 1px solid rgba(255, 255, 255, .1); font-size: 11.5px; white-space: nowrap; color: var(--aw-text); box-shadow: 0 6px 18px rgba(0, 0, 0, .35); }
+.aw-tip b { font-weight: 700; }
+.aw-chart.hover .aw-tip { opacity: 1; }
+.aw-legend { display: flex; gap: 14px; margin-top: 6px; font-size: 11.5px; color: var(--aw-2); }
+.aw-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.aw-legend i { width: 9px; height: 9px; border-radius: 2px; }
+.aw-legend i.tr { background: var(--aw-blue); border-radius: 50%; }
+.aw-legend i.ch { background: var(--aw-purple); border-radius: 50%; }
+.aw-legend i.e, .aw-types i.e { background: var(--aw-gray); }
+.aw-legend i.l, .aw-types i.l { background: var(--aw-orange); }
+.aw-types { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 9px; }
+.aw-types li { display: grid; grid-template-columns: 120px 1fr 52px; align-items: center; gap: 10px; font-size: 13px; }
+.aw-types .pair { display: grid; gap: 2px; }
+.aw-types .pair i { display: block; height: 5px; border-radius: 2.5px; }
+.aw-types b { font-size: 11.5px; font-weight: 500; text-align: right; color: var(--aw-2); font-variant-numeric: tabular-nums; }
+.aw-types b.down { color: var(--aw-green); }
+.aw-types b.up { color: var(--aw-red); }
+.js .appwin .bar { transform: scaleY(0); transform-box: fill-box; transform-origin: bottom; transition: transform .9s cubic-bezier(.2, .8, .2, 1); }
+.js .appwin.seen .bar { transform: none; }
+.js .appwin .line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s .3s cubic-bezier(.3, .7, .2, 1); }
+.js .appwin.seen .line { stroke-dashoffset: 0; }
+.appwin figcaption { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--card); border-top: 2px solid var(--ink-line); font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.appwin figcaption svg { width: 42px; flex: none; }
 .proud-note svg { width: 46px; flex: none; }
 
 /* Measured — a lab notebook */
@@ -580,7 +619,7 @@ footer p { margin: 8px 0 0; max-width: 62ch; }
   .coming svg { width: 110px; }
   .panel-body { padding: 16px; }
   .tenses li { grid-template-columns: 1fr; gap: 0; }
-  .types li { grid-template-columns: 104px 1fr 50px; font-size: 13px; }
+  .appwin figcaption { font-size: 13.5px; }
   table.models { font-size: 13.5px; }
   table.models th, table.models td { padding: 7px 4px; }
 }
@@ -961,37 +1000,47 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
 
 <section id="practice" style="padding-top: 30px">
   <div class="wrap">
-    <div class="split rev">
-      <div class="copy rise">
-        <p class="eyebrow">Practice · <span lang="th">ฝึก</span></p>
-        <h2>Your mistakes become your <span class="hl">lessons</span>.</h2>
-        <p class="lede">Every check is kept. Practice is built from your own corrections and spaced out so it sticks, and the dashboard shows you getting better: clean rate by week, and mistakes by type.</p>
-      </div>
-      <div class="panel rise" aria-label="The analytics dashboard, with sample data">
-        <div class="panel-bar"><span class="dots"><i></i><i></i><i></i></span><span class="grow">Analytics</span><span class="illus">sample data</span></div>
-        <div class="panel-body dash">
-          <div class="dash-h"><b>Checks that came back clean</b><span>by week · faded: under 5 checks</span></div>
-          <div class="clean-chart" id="clean-chart">
-            <svg viewBox="0 0 520 184" role="img" aria-label="Sample data: the share of checks that came back clean rises from 33% to 73% over six weeks">
-              <g class="grid"><line x1="14" x2="478" y1="14" y2="14"/><text x="486" y="18">100%</text><line x1="14" x2="478" y1="82.0" y2="82.0"/><text x="486" y="86.0">50%</text><line x1="14" x2="478" y1="150" y2="150"/><text x="486" y="154">0%</text></g>
-              <line class="rule" x1="0" x2="0" y1="10" y2="152"/>
-              <path class="line" d="M34 104.7 L118 93.3 L286 72.3 L370 55.8 L454 50.3" pathLength="1"/>
-              <g class="dots"><circle cx="34" cy="104.7" r="5.5" class=""/><circle cx="118" cy="93.3" r="5.5" class=""/><circle cx="202" cy="82.0" r="4" class="faint"/><circle cx="286" cy="72.3" r="5.5" class=""/><circle cx="370" cy="55.8" r="5.5" class=""/><circle cx="454" cy="50.3" r="5.5" class=""/></g>
-              <g class="xl"><text x="34" y="176" text-anchor="middle">Sep 1</text><text x="118" y="176" text-anchor="middle">Sep 8</text><text x="202" y="176" text-anchor="middle">Sep 15</text><text x="286" y="176" text-anchor="middle">Sep 22</text><text x="370" y="176" text-anchor="middle">Sep 29</text><text x="454" y="176" text-anchor="middle">Oct 6</text></g>
-              <g><rect class="hit" x="-8.0" y="0" width="84" height="160" data-x="34" data-tip="Sep 1 · 3 of 9 clean"/><rect class="hit" x="76.0" y="0" width="84" height="160" data-x="118" data-tip="Sep 8 · 5 of 12 clean"/><rect class="hit" x="160.0" y="0" width="84" height="160" data-x="202" data-tip="Sep 15 · 2 of 4 clean — too few to read much into"/><rect class="hit" x="244.0" y="0" width="84" height="160" data-x="286" data-tip="Sep 22 · 8 of 14 clean"/><rect class="hit" x="328.0" y="0" width="84" height="160" data-x="370" data-tip="Sep 29 · 9 of 13 clean"/><rect class="hit" x="412.0" y="0" width="84" height="160" data-x="454" data-tip="Oct 6 · 11 of 15 clean"/></g>
-            </svg>
-            <div class="tip" role="status"></div>
+    <div class="copy rise practice-copy">
+      <p class="eyebrow">Practice · <span lang="th">ฝึก</span></p>
+      <h2>Your mistakes become your <span class="hl">lessons</span>.</h2>
+      <p class="lede">Every check is kept. Practice is built from your own corrections and spaced out so it sticks, and the Analytics window shows how your writing changes: clean checks by week, and each kind of mistake, earlier against later.</p>
+    </div>
+
+    <figure class="appwin rise" id="appwin">
+      <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span>Analytics</span></div>
+      <div class="win-body"><div class="win-inner">
+        <div class="aw-head">
+          <h3>Analytics</h3>
+          <div class="aw-tools"><span class="aw-lbl">Range</span><span class="seg"><span>7d</span><span>30d</span><span>90d</span><span class="on">All</span></span><span class="aw-btn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v8M5 4.5l3-3 3 3M3.5 7.5v6h9v-6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Export CSV</span></div>
+        </div>
+        <p class="aw-sub">589 translations · 133 checks · 67 active days</p>
+        <div class="aw-insights">
+          <div class="ins green"><b>Agreement mistakes: 26 → 0</b><span>7 Aug – 13 Sep vs 13 Sep – 21 Oct</span></div>
+          <div class="ins orange"><b>17 saved words are due</b><span>4 ever reviewed · 0 mastered</span></div>
+          <div class="ins green"><b>Clean checks: 40% → 40%</b><span>113 checks vs 20</span></div>
+        </div>
+        <div class="aw-sec">
+          <div class="aw-h"><b>Reading and writing, by week</b><span>hover for numbers, click a week to see it</span></div>
+          <div class="aw-chart" data-chart><svg viewBox="0 0 800 186" role="img" aria-label="Translations and checks by week, 2 August to 18 October: 589 translations and 133 checks"><g class="grid"><line x1="6" x2="760" y1="160.0" y2="160.0"/><text x="768" y="164.0">0</text><line x1="6" x2="760" y1="122.5" y2="122.5"/><text x="768" y="126.5">50</text><line x1="6" x2="760" y1="85.0" y2="85.0"/><text x="768" y="89.0">100</text><line x1="6" x2="760" y1="47.5" y2="47.5"/><text x="768" y="51.5">150</text><line x1="6" x2="760" y1="10.0" y2="10.0"/><text x="768" y="14.0">200</text></g><g class="months"><line class="m" x1="275.3" x2="275.3" y1="10" y2="160"/><text x="280.3" y="178">Sep</text><line class="m" x1="544.6" x2="544.6" y1="10" y2="160"/><text x="549.6" y="178">Oct</text></g><g><rect class="bar tr" x="14.0" y="135.2" width="46.8" height="24.8"/><rect class="bar ch" x="14.0" y="121.0" width="46.8" height="14.2"/><rect class="bar tr" x="76.8" y="115.0" width="46.8" height="45.0"/><rect class="bar ch" x="76.8" y="104.5" width="46.8" height="10.5"/><rect class="bar tr" x="139.7" y="118.8" width="46.8" height="41.2"/><rect class="bar ch" x="139.7" y="103.0" width="46.8" height="15.8"/><rect class="bar tr" x="202.5" y="74.5" width="46.8" height="85.5"/><rect class="bar ch" x="202.5" y="45.2" width="46.8" height="29.3"/><rect class="bar tr" x="265.3" y="106.0" width="46.8" height="54.0"/><rect class="bar ch" x="265.3" y="95.5" width="46.8" height="10.5"/><rect class="bar tr" x="328.2" y="128.5" width="46.8" height="31.5"/><rect class="bar ch" x="328.2" y="124.0" width="46.8" height="4.5"/><rect class="bar tr" x="391.0" y="113.5" width="46.8" height="46.5"/><rect class="bar ch" x="391.0" y="103.0" width="46.8" height="10.5"/><rect class="bar tr" x="453.8" y="154.0" width="46.8" height="6.0"/><rect class="bar tr" x="516.7" y="109.0" width="46.8" height="51.0"/><rect class="bar ch" x="516.7" y="106.0" width="46.8" height="3.0"/><rect class="bar tr" x="579.5" y="134.5" width="46.8" height="25.5"/><rect class="bar tr" x="642.3" y="133.0" width="46.8" height="27.0"/><rect class="bar ch" x="642.3" y="132.2" width="46.8" height="0.8"/><rect class="bar tr" x="705.2" y="156.2" width="46.8" height="3.8"/><rect class="bar ch" x="705.2" y="155.5" width="46.8" height="0.8"/></g><line class="rule" x1="0" x2="0" y1="10" y2="160"/><g><rect class="hit" x="6.0" y="0" width="62.8" height="160" data-x="37.4" data-title="Week of 2 Aug" data-tip="33 translations · 19 checks · 2 clean"/><rect class="hit" x="68.8" y="0" width="62.8" height="160" data-x="100.3" data-title="Week of 9 Aug" data-tip="60 translations · 14 checks · 8 clean"/><rect class="hit" x="131.7" y="0" width="62.8" height="160" data-x="163.1" data-title="Week of 16 Aug" data-tip="55 translations · 21 checks · 7 clean"/><rect class="hit" x="194.5" y="0" width="62.8" height="160" data-x="225.9" data-title="Week of 23 Aug" data-tip="114 translations · 39 checks · 16 clean"/><rect class="hit" x="257.3" y="0" width="62.8" height="160" data-x="288.8" data-title="Week of 30 Aug" data-tip="72 translations · 14 checks · 8 clean"/><rect class="hit" x="320.2" y="0" width="62.8" height="160" data-x="351.6" data-title="Week of 6 Sep" data-tip="42 translations · 6 checks · 4 clean"/><rect class="hit" x="383.0" y="0" width="62.8" height="160" data-x="414.4" data-title="Week of 13 Sep" data-tip="62 translations · 14 checks · 7 clean"/><rect class="hit" x="445.8" y="0" width="62.8" height="160" data-x="477.3" data-title="Week of 20 Sep" data-tip="8 translations · 0 checks"/><rect class="hit" x="508.7" y="0" width="62.8" height="160" data-x="540.1" data-title="Week of 27 Sep" data-tip="68 translations · 4 checks · 1 clean"/><rect class="hit" x="571.5" y="0" width="62.8" height="160" data-x="602.9" data-title="Week of 4 Oct" data-tip="34 translations · 0 checks"/><rect class="hit" x="634.3" y="0" width="62.8" height="160" data-x="665.8" data-title="Week of 11 Oct" data-tip="36 translations · 1 checks · 0 clean"/><rect class="hit" x="697.2" y="0" width="62.8" height="160" data-x="728.6" data-title="Week of 18 Oct" data-tip="5 translations · 1 checks · 0 clean"/></g></svg><div class="aw-tip" role="status"></div></div>
+          <div class="aw-legend"><span><i class="tr"></i>Translations</span><span><i class="ch"></i>Checks</span></div>
+        </div>
+        <div class="aw-two">
+          <div class="aw-sec">
+            <div class="aw-h"><b>Checks that came back clean</b><span>by week · faded: under 5 checks</span></div>
+            <div class="aw-chart aw-clean" data-chart><svg viewBox="0 0 400 186" role="img" aria-label="Share of checks that came back clean, by week"><g class="grid"><line x1="6" x2="352" y1="160.0" y2="160.0"/><text x="359" y="164.0">0%</text><line x1="6" x2="352" y1="86.0" y2="86.0"/><text x="359" y="90.0">50%</text><line x1="6" x2="352" y1="12.0" y2="12.0"/><text x="359" y="16.0">100%</text></g><g class="months"><line class="m" x1="129.6" x2="129.6" y1="12" y2="160"/><text x="134.6" y="178">Sep</text><line class="m" x1="253.1" x2="253.1" y1="12" y2="160"/><text x="258.1" y="178">Oct</text></g><path class="line" d="M20.4 144.4 L49.2 75.4 L78.1 110.7 L106.9 99.3 L135.8 75.4 L164.6 61.3 L193.4 86.0" pathLength="1"/><g class="dots"><circle cx="20.4" cy="144.4" r="4.5"/><circle cx="49.2" cy="75.4" r="4.5"/><circle cx="78.1" cy="110.7" r="4.5"/><circle cx="106.9" cy="99.3" r="4.5"/><circle cx="135.8" cy="75.4" r="4.5"/><circle cx="164.6" cy="61.3" r="4.5"/><circle cx="193.4" cy="86.0" r="4.5"/><circle cx="251.1" cy="123.0" r="3.2" class="faint"/><circle cx="308.8" cy="160.0" r="3.2" class="faint"/><circle cx="337.6" cy="160.0" r="3.2" class="faint"/></g><line class="rule" x1="0" x2="0" y1="12" y2="160"/><g><rect class="hit" x="6.0" y="0" width="28.8" height="160" data-x="20.4" data-title="Week of 2 Aug" data-tip="2 of 19 clean"/><rect class="hit" x="34.8" y="0" width="28.8" height="160" data-x="49.2" data-title="Week of 9 Aug" data-tip="8 of 14 clean"/><rect class="hit" x="63.7" y="0" width="28.8" height="160" data-x="78.1" data-title="Week of 16 Aug" data-tip="7 of 21 clean"/><rect class="hit" x="92.5" y="0" width="28.8" height="160" data-x="106.9" data-title="Week of 23 Aug" data-tip="16 of 39 clean"/><rect class="hit" x="121.3" y="0" width="28.8" height="160" data-x="135.8" data-title="Week of 30 Aug" data-tip="8 of 14 clean"/><rect class="hit" x="150.2" y="0" width="28.8" height="160" data-x="164.6" data-title="Week of 6 Sep" data-tip="4 of 6 clean"/><rect class="hit" x="179.0" y="0" width="28.8" height="160" data-x="193.4" data-title="Week of 13 Sep" data-tip="7 of 14 clean"/><rect class="hit" x="236.7" y="0" width="28.8" height="160" data-x="251.1" data-title="Week of 27 Sep" data-tip="1 of 4 clean — too few to read much into"/><rect class="hit" x="294.3" y="0" width="28.8" height="160" data-x="308.8" data-title="Week of 11 Oct" data-tip="0 of 1 clean — too few to read much into"/><rect class="hit" x="323.2" y="0" width="28.8" height="160" data-x="337.6" data-title="Week of 18 Oct" data-tip="0 of 1 clean — too few to read much into"/></g></svg><div class="aw-tip" role="status"></div></div>
           </div>
-          <div class="dash-h" style="margin-top:14px"><b>Your mistakes by type</b><span>earlier vs later half</span></div>
-          <div class="legend"><span><i class="e"></i>Sep 1 – Sep 21</span><span><i class="l"></i>Sep 22 – Oct 12</span></div>
-          <ul class="types"><li><span class="k">singular / plural</span><span class="pair"><i class="e" style="width:100%"></i><i class="l" style="width:33%"></i></span><b class="down">9 → 3</b></li><li><span class="k">verb form</span><span class="pair"><i class="e" style="width:78%"></i><i class="l" style="width:44%"></i></span><b class="down">7 → 4</b></li><li><span class="k">missing word</span><span class="pair"><i class="e" style="width:67%"></i><i class="l" style="width:22%"></i></span><b class="down">6 → 2</b></li><li><span class="k">capitalization</span><span class="pair"><i class="e" style="width:44%"></i><i class="l" style="width:11%"></i></span><b class="down">4 → 1</b></li><li><span class="k">word choice</span><span class="pair"><i class="e" style="width:22%"></i><i class="l" style="width:33%"></i></span><b class="up">2 → 3</b></li></ul>
-          <div class="proud-note">
-            <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg>
-            <span>Sample data, drawn the way the app draws it. In the app, both charts come from your own checks.</span>
+          <div class="aw-sec">
+            <div class="aw-h"><b>Your mistakes by type</b><span>earlier vs later half · click one</span></div>
+            <div class="aw-legend"><span><i class="e"></i>7 Aug – 13 Sep</span><span><i class="l"></i>13 Sep – 21 Oct</span></div>
+            <ul class="aw-types"><li><span class="k">agreement</span><span class="pair"><i class="e" style="width:100%"></i><i class="l" style="width:1.2%"></i></span><b class="down">26 → 0</b></li><li><span class="k">missing word</span><span class="pair"><i class="e" style="width:81%"></i><i class="l" style="width:3.8%"></i></span><b class="down">21 → 1</b></li><li><span class="k">capitalization</span><span class="pair"><i class="e" style="width:31%"></i><i class="l" style="width:26.9%"></i></span><b class="down">8 → 7</b></li><li><span class="k">extra word</span><span class="pair"><i class="e" style="width:27%"></i><i class="l" style="width:7.7%"></i></span><b class="down">7 → 2</b></li><li><span class="k">spelling</span><span class="pair"><i class="e" style="width:27%"></i><i class="l" style="width:7.7%"></i></span><b class="down">7 → 2</b></li></ul>
           </div>
         </div>
-      </div>
-    </div>
+      </div></div>
+      <figcaption>
+        <svg class="tile" viewBox="4 6 98 98" aria-hidden="true"><rect x="4" y="6" width="98" height="98" rx="24" fill="url(#skyTile)"/><use href="#tail" fill="#fff"/><use href="#cloud" fill="#fff"/><use href="#faceProud"/></svg>
+        <span>The app's Analytics window, rebuilt from its own layout with the developer's real history, 7 Aug to 21 Oct. Hover the charts for the numbers. Most of the agreement drop came with the switch to Gemma 4 E2B in late August, and the clean rate held at 40%.</span>
+      </figcaption>
+    </figure>
 
     <div class="practice-grid">
       <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg></div><h3>Glossary and wordbank</h3><p>Save words as you meet them, with the sentence you met them in.</p></div>
@@ -1290,26 +1339,29 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
   addEventListener("resize", sync);
   sync();
 
-  const cc = $("#clean-chart");
-  const grow = () => cc.classList.add("drawn");
-  const tip = cc.querySelector(".tip"), rule = cc.querySelector(".rule"), svg = cc.querySelector("svg");
-  cc.querySelectorAll(".hit").forEach(h => {
-    const show = () => {
-      const x = +h.dataset.x;
-      rule.setAttribute("x1", x); rule.setAttribute("x2", x); rule.style.opacity = 1;
-      tip.textContent = h.dataset.tip;
-      tip.style.left = (x / 520 * svg.getBoundingClientRect().width) + "px";
-      tip.classList.add("on");
-    };
-    h.addEventListener("mouseenter", show);
-    h.addEventListener("click", show);
+  const aw = $("#appwin");
+  const grow = () => aw.classList.add("seen");
+  $$("[data-chart]", aw).forEach(chart => {
+    const svg = chart.querySelector("svg"), rule = chart.querySelector(".rule"), tip = chart.querySelector(".aw-tip");
+    const vbw = svg.viewBox.baseVal.width;
+    chart.querySelectorAll(".hit").forEach(h => {
+      const show = () => {
+        const x = +h.dataset.x, w = svg.getBoundingClientRect().width;
+        rule.setAttribute("x1", x); rule.setAttribute("x2", x);
+        tip.innerHTML = "<b>" + h.dataset.title + "</b><span>" + h.dataset.tip + "</span>";
+        tip.style.left = Math.min(Math.max(x / vbw * w, 90), w - 90) + "px";
+        chart.classList.add("hover");
+      };
+      h.addEventListener("mouseenter", show);
+      h.addEventListener("click", show);
+    });
+    svg.addEventListener("mouseleave", () => chart.classList.remove("hover"));
   });
-  svg.addEventListener("mouseleave", () => { rule.style.opacity = 0; tip.classList.remove("on"); });
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return;
       e.target.classList.add("in");
-      if (e.target.querySelector && e.target.querySelector("#clean-chart")) grow();
+      if (e.target === aw) grow();
       io.unobserve(e.target);
     }), { threshold: .12, rootMargin: "0px 0px -40px 0px" });
     $$(".rise").forEach(el => io.observe(el));

@@ -531,6 +531,154 @@ svg.tile { filter: drop-shadow(0 4px 8px rgba(21, 84, 232, .28)); }
   .desk { padding: 18px 10px; border-radius: 16px; }
   .mp { zoom: .86; }
 }
+/* Shared dark macOS UI for the Settings, Practice and popover rebuilds. */
+.ui { --p: rgba(255, 255, 255, .88); --s: rgba(235, 235, 245, .6); --t: rgba(235, 235, 245, .32); --q: rgba(235, 235, 245, .16); --blue: #0a84ff; --purple: #bf5af2; --green: #30d158; --red: #ff453a; --orange: #ff9f0a; --cyan: #64d2ff;
+  color: var(--p); text-align: left; font: 13px/1.35 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Thonburi", "IBM Plex Sans Thai Looped", sans-serif; }
+.ui p { margin: 0; }
+.ui .ic { width: 1em; height: 1em; flex: none; display: inline-block; vertical-align: -.12em; }
+.ui .sp { flex: 1; }
+.ui .tag { font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
+.ui .tag.green { color: var(--green); background: rgba(48, 209, 88, .15); }
+.ui .tag.orange { color: var(--orange); background: rgba(255, 159, 10, .15); }
+.ui .btn { display: inline-flex; align-items: center; gap: 4px; border-radius: 5px; white-space: nowrap; }
+.ui .btn.sm, .ui .btn.bordered { font-size: 11px; padding: 2px 9px; background: rgba(255, 255, 255, .13); color: var(--p); box-shadow: inset 0 .5px 0 rgba(255, 255, 255, .12); }
+.ui .btn.bordered { font-size: 13px; padding: 3px 12px; }
+.ui .btn.bordered.small { font-size: 11px; padding: 2px 8px; justify-self: start; }
+.ui .btn.prominent { font-size: 13px; padding: 4px 14px; background: var(--blue); color: #fff; border: 0; cursor: pointer; justify-self: center; }
+.ui .btn.mini { font-size: 9.5px; padding: 1px 6px; border-radius: 4px; background: rgba(255, 255, 255, .12); color: var(--p); }
+.ui .btn.mini.purple { background: rgba(191, 90, 242, .2); color: var(--purple); }
+.ui .win-bar { display: flex; align-items: center; gap: 12px; padding: 10px 12px; font-size: 13px; font-weight: 600; color: var(--s); border-bottom: .5px solid rgba(0, 0, 0, .5); }
+.ui .win-bar .dots { display: flex; gap: 7px; }
+.ui .win-bar .dots i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+.ui .win-bar .dots i:nth-child(2) { background: #febc2e; }
+.ui .win-bar .dots i:nth-child(3) { background: #28c840; }
+.ui .win-bar .ttl { flex: 1; text-align: center; margin-right: 50px; }
+.ui .mp-disc { display: grid; gap: 4px; }
+.ui .mp-disc-h { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--s); cursor: pointer; user-select: none; }
+.ui .mp-disc[data-static] .mp-disc-h { cursor: default; }
+.ui .mp-disc-h .ic { width: 9px; height: 9px; }
+.ui .mp-disc-h .cnt, .ui .mp-disc-h .acc { font-size: 10px; color: var(--t); }
+.ui .mp-disc-h .addall { font-size: 10px; color: var(--blue); }
+.ui .mp-disc .cd, .ui .mp-disc.open .cr { display: none; }
+.ui .mp-disc.open .cd { display: inline-block; }
+.ui .mp-disc-b { display: none; }
+.ui .mp-disc.open > .mp-disc-b { display: block; }
+.ui .mp-disc-h:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 3px; }
+.desk.wide { padding: 26px 22px; }
+.desk.tall { align-content: start; padding-top: 0; }
+
+/* Settings → AI model (Form, grouped) */
+.setwin { zoom: 1.12; width: 470px; max-width: 100%; border-radius: 11px; overflow: hidden; background: #1e1e1e; border: .5px solid rgba(255, 255, 255, .16); box-shadow: 0 22px 50px rgba(0, 0, 0, .45); }
+.set-body { padding: 14px 18px 18px; }
+.set-sec { font-size: 13px; font-weight: 700; margin: 2px 4px 7px !important; }
+.set-group { background: rgba(255, 255, 255, .05); border-radius: 8px; border: .5px solid rgba(255, 255, 255, .07); }
+.set-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; font-size: 13px; }
+.set-row + .set-row { border-top: .5px solid rgba(255, 255, 255, .08); }
+.set-row.in { padding-left: 28px; }
+.set-row.col { display: grid; gap: 8px; }
+.set-row.note { font-size: 10px; color: var(--s); padding-top: 6px; padding-bottom: 6px; }
+.set-line { display: flex; align-items: center; gap: 8px; }
+.set-line .cap { font-size: 10px; color: var(--s); }
+.set-row .two { display: grid; gap: 1px; }
+.set-row .two b { font-weight: 400; }
+.set-row .two small { font-size: 10px; color: var(--t); }
+.sw { width: 26px; height: 15px; border-radius: 999px; background: rgba(255, 255, 255, .2); position: relative; flex: none; }
+.sw i { position: absolute; top: 1.5px; left: 1.5px; width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .4); }
+.sw.on { background: var(--blue); }
+.sw.on i { left: 12.5px; }
+.pop { position: relative; display: inline-flex; align-items: center; }
+.pop select { appearance: none; -webkit-appearance: none; font: inherit; font-size: 13px; color: var(--p); background: rgba(255, 255, 255, .13); border: 0; border-radius: 5px; padding: 2px 24px 2px 9px; cursor: pointer; box-shadow: inset 0 .5px 0 rgba(255, 255, 255, .12); }
+.pop select:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.pop select option { color: #000; }
+.pop .ic { position: absolute; right: 7px; width: 9px; height: 9px; pointer-events: none; color: var(--s); }
+.ui .ind { padding: 4px 0 2px 14px; display: grid; gap: 9px; }
+.lm-grid { display: grid; grid-template-columns: 14px 1.6fr .8fr 1fr .6fr; column-gap: 12px; row-gap: 7px; align-items: center; }
+.lm-grid .hd { font-size: 9px; font-weight: 600; color: var(--t); }
+.lm-grid .div { grid-column: 1 / -1; height: .5px; background: rgba(255, 255, 255, .1); }
+.lm-grid .radio { width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid var(--s); }
+.lm-grid .radio.on { border: 4px solid var(--blue); background: #fff; }
+.lm-grid .mn b { font-weight: 400; display: inline-flex; align-items: center; gap: 5px; }
+.lm-grid small { display: block; font-size: 10px; color: var(--t); }
+.lm-grid .mm { font-size: 10px; color: var(--s); font-variant-numeric: tabular-nums; }
+.lm-grid .ma { font-size: 10px; }
+.lm .foot { font-size: 10px; color: var(--s); margin-top: 2px; }
+.prov { display: flex; align-items: flex-start; gap: 7px; }
+.prov .pc { width: 9px; height: 9px; color: var(--t); margin-top: 3px; }
+.prov .pv { display: grid; gap: 1px; }
+.prov .pn { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; }
+.prov .ps { font-size: 10px; color: var(--t); }
+.ui .warn { font-size: 10px; color: var(--orange); }
+
+/* Practice */
+.prac-split { margin-top: 56px; }
+.prac-split .sub-h { font-size: 24px; margin-bottom: 12px; }
+.pracwin { zoom: 1.18; width: 430px; max-width: 100%; border-radius: 11px; overflow: hidden; background: #1e1e1e; border: .5px solid rgba(255, 255, 255, .16); box-shadow: 0 22px 50px rgba(0, 0, 0, .45); }
+.prac-body { padding: 20px; display: grid; gap: 14px; min-height: 300px; align-content: start; }
+.prog { display: flex; align-items: center; gap: 9px; }
+.kindtag { font-size: 10px; font-weight: 600; color: var(--blue); background: rgba(10, 132, 255, .15); padding: 2px 6px; border-radius: 4px; }
+.pbar { flex: 1; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .12); overflow: hidden; }
+.pbar i { display: block; height: 100%; background: var(--blue); }
+.prog .cnt { font-size: 10px; color: var(--t); }
+.prompt { font-size: 15px; padding: 6px 0; }
+.opts { display: grid; gap: 7px; }
+.opt { display: flex; align-items: center; font: inherit; font-size: 13px; color: var(--p); text-align: left; padding: 8px 11px; border-radius: 7px; border: 0; background: rgba(235, 235, 245, .1); cursor: pointer; }
+.opt:hover { background: rgba(235, 235, 245, .14); }
+.opt:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.opt .ic { width: 13px; height: 13px; display: none; }
+.opt .yes { color: var(--green); }
+.opt .no { color: var(--red); }
+.picked .opt { cursor: default; }
+.picked .opt.right { background: rgba(48, 209, 88, .16); }
+.picked .opt.right .yes { display: inline-block; }
+.picked .opt.wrong { background: rgba(255, 69, 58, .14); }
+.picked .opt.wrong .no { display: inline-block; }
+
+/* Menu-bar popover */
+.menubar-strip { width: calc(100% + 40px); margin: 0 -20px 14px; display: flex; justify-content: flex-end; align-items: center; gap: 18px; padding: 5px 18px; background: rgba(20, 20, 24, .55); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); color: #fff; font: 600 13px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; border-radius: 20px 20px 0 0; }
+.mb-app { display: inline-flex; align-items: center; gap: 4px; padding: 1px 6px; border-radius: 5px; background: rgba(255, 255, 255, .22); }
+.mb-app .mbg { width: 17px; height: 17px; }
+.mb-app b { font-weight: 500; font-size: 12px; }
+.popwin { zoom: 1.08; width: 340px; padding: 16px; display: grid; gap: 10px; align-content: start; border-radius: 12px; background: rgba(36, 36, 39, .92); -webkit-backdrop-filter: blur(30px) saturate(1.6); backdrop-filter: blur(30px) saturate(1.6); border: .5px solid rgba(255, 255, 255, .16); box-shadow: 0 22px 50px rgba(0, 0, 0, .45); }
+.pop-head { display: flex; align-items: center; gap: 12px; }
+.pop-head .tint { color: var(--blue); width: 15px; height: 15px; }
+.pop-head b { font-size: 13px; }
+.pop-head .hb { position: relative; color: var(--p); display: inline-flex; }
+.pop-head .hb .ic { width: 15px; height: 15px; }
+.pop-head .hb em { position: absolute; top: -6px; right: -9px; font: normal 700 8px/1 inherit; font-family: inherit; color: #fff; background: var(--red); padding: 1px 3px; border-radius: 999px; }
+.field { font-size: 13px; padding: 4px 7px; min-height: 56px; border-radius: 5px; background: rgba(0, 0, 0, .25); border: .5px solid rgba(255, 255, 255, .14); }
+.field.small { min-height: 0; font-size: 11px; color: var(--t); padding: 3px 7px; }
+.ui .mp-seg { display: grid; grid-template-columns: 1fr 1fr; background: rgba(255, 255, 255, .08); border-radius: 6px; padding: 2px; font-size: 12px; text-align: center; }
+.ui .mp-seg span { padding: 2px 0; border-radius: 4.5px; }
+.ui .mp-seg span.on { background: rgba(255, 255, 255, .22); box-shadow: 0 1px 2px rgba(0, 0, 0, .3); }
+.pop-ctl { display: flex; align-items: center; }
+.pop-ctl .clr { width: 15px; height: 15px; color: var(--s); }
+.pop-scroll { display: grid; gap: 10px; }
+.ui .mp-cards { display: grid; gap: 6px; }
+.ui .mp-card { padding: 8px 10px; border-radius: 9px; background: rgba(255, 255, 255, .045); border: 1px solid rgba(235, 235, 245, .16); display: grid; gap: 4px; }
+.ui .mp-card.gem { border-color: rgba(191, 90, 242, .45); }
+.ui .mp-card-h { display: flex; align-items: center; gap: 6px; font-size: 10px; }
+.ui .mp-card-h b { font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
+.ui .mp-card.gem .mp-card-h b { color: var(--purple); }
+.ui .mp-card-h .t { color: var(--t); }
+.ui .mp-cards.body .mp-card p { font-size: 13px; line-height: 1.5; }
+.ui .df { text-decoration: underline solid var(--orange); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.ui .mp-note { font-size: 10px; color: var(--t); }
+.popwin hr { border: 0; height: .5px; background: rgba(255, 255, 255, .14); margin: 2px 0; }
+.hist-h { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--s); }
+.hist-h .cnt { color: var(--t); }
+.hist-bar { display: flex; font-size: 10px; color: var(--blue); min-height: 14px; }
+.hist-row { padding: 4px 6px; border-radius: 4px; background: rgba(235, 235, 245, .06); display: grid; gap: 1px; }
+.hr-top { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--t); }
+.hr-top .ic { width: 9px; height: 9px; }
+.hist-row p { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-row p.tr { color: var(--s); }
+@media (max-width: 640px) {
+  .desk.wide { padding: 18px 10px; }
+  .setwin { zoom: .66; }
+  .pracwin { zoom: 1; width: 100%; }
+  .popwin { zoom: .9; }
+  .lm-grid { column-gap: 8px; }
+}
 .practice-copy { max-width: 720px; }
 .appwin { margin: 34px auto 0; max-width: 1000px; border: 2px solid var(--ink-line); border-radius: 14px; box-shadow: 7px 7px 0 var(--ink-line); background: #1f1f21; overflow: hidden; --aw-text: #f5f5f7; --aw-2: rgba(235, 235, 245, .62); --aw-3: rgba(235, 235, 245, .32); --aw-line: rgba(255, 255, 255, .09); --aw-blue: #0a84ff; --aw-purple: #bf5af2; --aw-green: #30d158; --aw-orange: #ff9f0a; --aw-gray: #98989d; --aw-red: #ff453a; }
 .appwin > .win-bar, .appwin > .win-body { background: #1f1f21; color: var(--aw-text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; }
@@ -942,6 +1090,18 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
   <symbol id="i-check-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M4.8 8.2 7 10.4 11.2 5.8" fill="none" stroke="#1c1c1e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-clock" viewBox="0 0 16 16"><path d="M2.6 8a5.4 5.4 0 1 0 1.6-3.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2.5 2.5v2.2h2.2M8 5v3.2l2.2 1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-text-append" viewBox="0 0 16 16"><path d="M2.5 4h11M2.5 7h11M2.5 10h6M11.5 9.5v4M9.5 11.5h4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="i-x-mark" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="7" rx="1.5" fill="currentColor"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="i-key" viewBox="0 0 16 16"><circle cx="5.5" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 8h6M12.5 8v2.5M14.5 8v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-cloud-outline" viewBox="0 0 18 18"><path d="M5.4 13.4 C3.2 13.4 2.1 11.9 2.5 10.4 C2.8 9.1 3.9 8.4 5 8.6 C5 6.6 6.7 5.3 8.6 5.7 C9.7 4.1 12.1 4.1 13.1 5.7 C15 5.7 16.3 7.4 15.8 9 C17 9.6 17.2 11.6 16.1 12.7 C15.6 13.2 14.9 13.4 14.2 13.4 H8.6 L5.3 16 L6 13.4 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="8" cy="9.9" r=".95" fill="currentColor"/><circle cx="11.4" cy="9.9" r=".95" fill="currentColor"/></symbol>
+  <symbol id="i-bubble" viewBox="0 0 16 16"><path d="M3 3h10a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 13 11H7l-3 2.5V11H3a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 3 3z" fill="currentColor"/><path d="M5 8.6 6.6 5h.4l1.6 3.6M5.6 7.4h2.4M10 5.5h2.5M11.25 5.5v3.2" fill="none" stroke="#1c1c1e" stroke-width=".9" stroke-linecap="round"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 16 16"><path d="M1.5 6 8 3l6.5 3L8 9z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M4 7.3v3.2c0 1 1.8 2 4 2s4-1 4-2V7.3M14.5 6v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 16 16"><path d="M3 13V8M6.3 13V4M9.6 13V7M13 13V2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.8v2M8 12.2v2M1.8 8h2M12.2 8h2M3.6 3.6 5 5M11 11l1.4 1.4M3.6 12.4 5 11M11 5l1.4-1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="i-power" viewBox="0 0 16 16"><path d="M8 2v5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M4.6 4.4a5 5 0 1 0 6.8 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-x-circle-outline" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5.8 5.8l4.4 4.4M10.2 5.8l-4.4 4.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-ask" viewBox="0 0 16 16"><path d="M3 2.5h8a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 11 10.5H6.5L3.5 13v-2.5H3A1.5 1.5 0 0 1 1.5 9V4A1.5 1.5 0 0 1 3 2.5z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5.8 5.2a1.3 1.3 0 1 1 1.8 1.2c-.4.2-.6.5-.6.9M7 8.6v.1" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M13.3 .8c.2 1.1.6 1.6 1.7 2-1.1.4-1.5.9-1.7 2-.2-1.1-.6-1.6-1.7-2 1.1-.4 1.5-.9 1.7-2z" fill="currentColor"/></symbol>
+  <symbol id="i-clock-circ" viewBox="0 0 16 16"><path d="M2.6 8a5.4 5.4 0 1 0 1.6-3.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2.5 2.5v2.2h2.2M8 5v3.2l2.2 1.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-plus-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 5.2v5.6M5.2 8h5.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></symbol>
 </svg>
 <header class="sky" id="top">
@@ -1025,6 +1185,49 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
       <div class="rise"><b>Learn from your own work</b>Every word you look up and every sentence you check becomes practice.</div>
       <div class="rise"><b>One keystroke, anywhere</b>⌘T translates and ⌘G checks without leaving what you are doing.</div>
       <div class="rise"><b>Private</b>Translation and checking run on your Mac and work offline. Cloud models are opt-in.</div>
+    </div>
+  </div>
+</section>
+
+<section id="menubar" style="padding-top: 40px">
+  <div class="wrap">
+    <div class="split">
+      <div class="copy rise">
+        <p class="eyebrow">In the menu bar · <span lang="th">บนแถบเมนู</span></p>
+        <h2>Always <span class="hl">one click</span> away.</h2>
+        <p class="lede">Click the cloud in the menu bar to type or paste anything. The number beside it is how many saved words are due, and the row of icons opens Practice, the wordbank, Analytics and Settings.</p>
+        <p>Every translation lands in History below, searchable, with the result one click from being loaded again.</p>
+        <p class="note">The counts are real: 589 translations and 17 words due on the developer's Mac. The sentences in the box and in History are from the test corpus, not anyone's history.</p>
+      </div>
+      <figure class="rise app-fig">
+        <div class="desk tall"><div class="menubar-strip"><span class="mb-app"><svg class="ic mbg" aria-hidden="true"><use href="#i-cloud-outline"/></svg><b>17</b></span><span>Tue 9:41</span></div>
+<div class="popwin ui">
+  <div class="pop-head"><svg class="ic tint" aria-hidden="true"><use href="#i-bubble"/></svg><b>Languagly</b><i class="sp"></i>
+    <span class="hb"><svg class="ic " aria-hidden="true"><use href="#i-cap"/></svg><em>17</em></span><span class="hb"><svg class="ic " aria-hidden="true"><use href="#i-book"/></svg></span><span class="hb"><svg class="ic " aria-hidden="true"><use href="#i-chart"/></svg></span><span class="hb"><svg class="ic " aria-hidden="true"><use href="#i-gear"/></svg></span><span class="hb"><svg class="ic " aria-hidden="true"><use href="#i-power"/></svg></span></div>
+  <div class="field">Real rates remain deeply negative despite the hikes.</div>
+  <div class="mp-seg"><span class="on">Translate</span><span>Check</span></div>
+  <div class="pop-ctl"><span class="btn bordered">Translate</span><i class="sp"></i><svg class="ic clr" aria-hidden="true"><use href="#i-x-circle-outline"/></svg></div>
+  <div class="pop-scroll">
+    <div class="mp-cards body">
+      <div class="mp-card gem"><div class="mp-card-h"><b><svg class="ic " aria-hidden="true"><use href="#i-sparkle"/></svg>Gemma</b><span class="t">0.4 s</span><i class="sp"></i><span class="btn mini purple"><svg class="ic " aria-hidden="true"><use href="#i-copy"/></svg>Copy</span></div>
+        <p lang="th">อัตรา<span class="df">ดอกเบี้ยที่แท้จริง</span>ยังคง<span class="df">ติดลบอย่างมาก</span>แม้จะมีการปรับขึ้น</p></div>
+      <div class="mp-card"><div class="mp-card-h"><b>Apple</b><span class="t">1.8 s</span><i class="sp"></i><span class="btn mini"><svg class="ic " aria-hidden="true"><use href="#i-copy"/></svg>Copy</span></div>
+        <p lang="th">อัตรา<span class="df">ค่าเงินจริง</span>ยังคง<span class="df">เป็นลบอย่างรุนแรง</span>แม้จะมีการปรับขึ้น<span class="df">แล้วก็ตาม</span></p></div>
+      <p class="mp-note">Underlined: where the two differ</p>
+    </div>
+    <span class="btn bordered small ask"><svg class="ic " aria-hidden="true"><use href="#i-ask"/></svg>Ask</span>
+    <div class="mp-disc" data-static><div class="mp-disc-h"><svg class="ic cr" aria-hidden="true"><use href="#i-chev-r"/></svg><span>Words</span><span class="cnt">6</span><i class="sp"></i><span class="addall">Add all 6</span></div></div>
+    <hr>
+    <div class="hist-h"><svg class="ic " aria-hidden="true"><use href="#i-clock-circ"/></svg><span>History</span><i class="sp"></i><span class="cnt">589</span></div>
+    <div class="field small">Search history…</div>
+    <div class="hist-bar"><i class="sp"></i><span>Select</span></div>
+    <div class="hist-row"><div class="hr-top"><span>EN</span><svg class="ic " aria-hidden="true"><use href="#i-arrow-r"/></svg><span>TH</span><i class="sp"></i><span>now</span></div>
+      <p>Real rates remain deeply negative despite the hikes.</p><p class="tr" lang="th">อัตราดอกเบี้ยที่แท้จริงยังคงติดลบอย่างมากแม้จะมีการปรับขึ้น</p></div>
+    <div class="hist-row"><div class="hr-top"><span>EN</span><svg class="ic " aria-hidden="true"><use href="#i-arrow-r"/></svg><span>TH</span><i class="sp"></i><span>4 min. ago</span></div>
+      <p>The yen strengthened as investors sought safe havens.</p><p class="tr" lang="th">เงินเยนแข็งค่าขึ้นเนื่องจากนักลงทุนต่างชาติมองหาที่หลบภัยที่ปลอดภัย</p></div>
+  </div>
+</div></div>
+      </figure>
     </div>
   </div>
 </section>
@@ -1141,6 +1344,30 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
       </figcaption>
     </figure>
 
+    <div class="split prac-split">
+      <figure class="rise app-fig">
+        <div class="desk"><div class="pracwin ui">
+  <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="ttl">Practice</span></div>
+  <div class="prac-body" id="drill">
+    <div class="prog"><span class="kindtag">CLOZE</span><span class="pbar"><i style="width:10%"></i></span><span class="cnt">1 / 10</span></div>
+    <p class="prompt">The Fed will keep shrinking its _____ sheet.</p>
+    <div class="opts">
+      <button type="button" class="opt" data-ok="0"><span>leverage</span><i class="sp"></i><svg class="ic no" aria-hidden="true"><use href="#i-x-mark"/></svg><svg class="ic yes" aria-hidden="true"><use href="#i-check"/></svg></button>
+      <button type="button" class="opt" data-ok="1"><span>balance</span><i class="sp"></i><svg class="ic no" aria-hidden="true"><use href="#i-x-mark"/></svg><svg class="ic yes" aria-hidden="true"><use href="#i-check"/></svg></button>
+      <button type="button" class="opt" data-ok="0"><span>maturity</span><i class="sp"></i><svg class="ic no" aria-hidden="true"><use href="#i-x-mark"/></svg><svg class="ic yes" aria-hidden="true"><use href="#i-check"/></svg></button>
+    </div>
+    <button type="button" class="btn prominent cont" hidden>Continue</button>
+  </div>
+</div></div>
+        <figcaption>Pick one: the right word turns green, a wrong pick red, then Continue.</figcaption>
+      </figure>
+      <div class="copy rise">
+        <h3 class="sub-h">Then practise what's due.</h3>
+        <p>Practice takes the ten most overdue words at a time. A word you saved from a sentence comes back as that sentence with a gap; one without, as its meaning to match; with too few words saved, as a card to recall and grade, and the grade sets the next review: under a minute, a day, or more.</p>
+        <p class="note">The sentence is from the test corpus. The counter is real: 17 words are due on the developer's Mac, and a session takes ten.</p>
+      </div>
+    </div>
+
     <div class="practice-grid">
       <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg></div><h3>Glossary and wordbank</h3><p>Save words as you meet them, with the sentence you met them in.</p></div>
       <div class="feat rise"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div><h3>Spaced repetition</h3><p>Drills from your own corrections, timed so you see each one just before you forget it.</p></div>
@@ -1208,19 +1435,39 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>No account.</b> Nothing to sign up for, and nothing synced anywhere.</span></li>
         </ul>
       </div>
-      <div class="mac rise" aria-hidden="true">
-        <div class="menubar">
-          <svg class="glyph" viewBox="0 0 18 18"><path d="M5.4 13.4 C3.2 13.4 2.1 11.9 2.5 10.4 C2.8 9.1 3.9 8.4 5 8.6 C5 6.6 6.7 5.3 8.6 5.7 C9.7 4.1 12.1 4.1 13.1 5.7 C15 5.7 16.3 7.4 15.8 9 C17 9.6 17.2 11.6 16.1 12.7 C15.6 13.2 14.9 13.4 14.2 13.4 H8.6 L5.3 16 L6 13.4 Z" fill="none" stroke-width="1.5" stroke-linejoin="round"/><circle cx="8" cy="9.9" r=".95"/><circle cx="11.4" cy="9.9" r=".95"/></svg>
-          <span>Mon 9:41</span>
-        </div>
-        <div class="offline">
-          <div>Translate · Apple <span>offline</span></div>
-          <div>Translate · Gemma 4 E2B <span>on your Mac</span></div>
-          <div>Check · Gemma 4 E2B <span>on your Mac</span></div>
-          <div class="soon">Buddy · tuned for Thai finance <span>next · on your Mac</span></div>
-          <div>API providers <span>off</span></div>
-        </div>
+      <figure class="rise app-fig">
+        <div class="desk wide"><div class="setwin ui">
+  <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="ttl">Settings</span></div>
+  <div class="set-body">
+    <p class="set-sec">AI model</p>
+    <div class="set-group">
+      <div class="set-row col">
+        <div class="set-line"><span class="cap">Choose what runs the AI features</span><i class="sp"></i><span class="btn sm">Done</span></div>
+        <div class="mp-disc open"><div class="mp-disc-h" role="button" tabindex="0" aria-expanded="true"><svg class="ic cr" aria-hidden="true"><use href="#i-chev-r"/></svg><svg class="ic cd" aria-hidden="true"><use href="#i-chev-d"/></svg><svg class="ic " aria-hidden="true"><use href="#i-lock"/></svg><span>On this Mac</span><i class="sp"></i><span class="tag green">in use</span><span class="acc">private · offline · free</span></div><div class="mp-disc-b"><div class="ind"><div class="lm">
+  <div class="lm-grid">
+    <span></span><span class="hd">MODEL</span><span class="hd">MEMORY</span><span class="hd">ACCURACY</span><span class="hd">SPEED</span>
+    <i class="div"></i>
+    <span class="radio on"></span>
+    <span class="mn"><b>Gemma 4 E2B <span class="tag green">in use</span></b><small>2.0 GB</small></span>
+    <span class="mm">2.2 GB</span>
+    <span class="ma">91%<small>11% false alarms</small></span>
+    <span class="mm">0.3 s</span>
+  </div>
+  <p class="foot">Accuracy is out of 200 sentences — 126 with a mistake in them, 74 already correct. Memory is what the app holds while running; models over 5 GB are marked. A dash means no one has measured that model yet.</p>
+</div></div></div></div>
+        <div class="mp-disc"><div class="mp-disc-h" role="button" tabindex="0" aria-expanded="false"><svg class="ic cr" aria-hidden="true"><use href="#i-chev-r"/></svg><svg class="ic cd" aria-hidden="true"><use href="#i-chev-d"/></svg><svg class="ic " aria-hidden="true"><use href="#i-key"/></svg><span>API providers</span><i class="sp"></i><span class="acc">your own key · billed per call</span></div><div class="mp-disc-b"><div class="ind"><div class="prov"><svg class="ic pc" aria-hidden="true"><use href="#i-chev-r"/></svg><div class="pv"><span class="pn">Anthropic<span class="tag orange">no key</span></span><span class="ps">2 models · billed per call</span></div><i class="sp"></i><span class="btn sm">Add key…</span></div><div class="prov"><svg class="ic pc" aria-hidden="true"><use href="#i-chev-r"/></svg><div class="pv"><span class="pn">OpenAI<span class="tag orange">no key</span></span><span class="ps">2 models · billed per call</span></div><i class="sp"></i><span class="btn sm">Add key…</span></div><div class="prov"><svg class="ic pc" aria-hidden="true"><use href="#i-chev-r"/></svg><div class="pv"><span class="pn">OpenRouter<span class="tag orange">no key</span></span><span class="ps">11 models · free tiers rate-limit · paid ones are ~a cent a check</span></div><i class="sp"></i><span class="btn sm">Add key…</span></div><div class="prov"><svg class="ic pc" aria-hidden="true"><use href="#i-chev-r"/></svg><div class="pv"><span class="pn">Alibaba<span class="tag orange">no key</span></span><span class="ps">4 models · qwen-mt-* are built for translation</span></div><i class="sp"></i><span class="btn sm">Add key…</span></div><div class="prov"><svg class="ic pc" aria-hidden="true"><use href="#i-chev-r"/></svg><div class="pv"><span class="pn">Alibaba · Anthropic<span class="tag orange">no key</span></span><span class="ps">2 models · same key, Anthropic wire format</span></div><i class="sp"></i><span class="btn sm">Add key…</span></div></div></div></div>
+        <p class="warn">API models send your text off this Mac and are billed per call. The local models never do either.</p>
       </div>
+      <div class="set-row"><span class="two"><b>Suggest a better translation</b><small>Gemma 4 E2B · on-device</small></span><i class="sp"></i><span class="sw on" aria-hidden="true"><i></i></span></div>
+      <div class="set-row in"><span class="two"><b>Write usage examples</b><small>3 sentences per word · adds ~2 s when you tap a word</small></span><i class="sp"></i><span class="sw on" aria-hidden="true"><i></i></span></div>
+      <div class="set-row in"><span class="two"><b>Check my English</b><small>Grammar &amp; wording · ⌘G on a selection</small></span><i class="sp"></i><span class="sw on" aria-hidden="true"><i></i></span></div>
+      <div class="set-row"><span>Translate with</span><i class="sp"></i><label class="pop"><select aria-label="Translate with" data-note-for="tw-note"><option selected data-note="Both run at once; Gemma usually answers first.">Apple + Gemma</option><option data-note="Apple's on-device translation alone. The model is not used to translate.">Apple only</option><option data-note="About 4× faster than Apple. Falls back to Apple for Thai, or when Gemma has no answer.">Gemma only</option></select><svg class="ic " aria-hidden="true"><use href="#i-chev-d"/></svg></label></div><div class="set-row note" id="tw-note">Both run at once; Gemma usually answers first.</div>
+      <div class="set-row"><span>Free memory after</span><i class="sp"></i><label class="pop"><select aria-label="Free memory after" data-note-for="fm-note"><option data-note="Unused for that long, the model is released and the next check waits ~1 s to reload.">5 minutes</option><option selected data-note="Unused for that long, the model is released and the next check waits ~1 s to reload.">10 minutes</option><option data-note="Unused for that long, the model is released and the next check waits ~1 s to reload.">30 minutes</option><option data-note="The model stays in memory — about 2.2 GB — until you quit.">Never</option></select><svg class="ic " aria-hidden="true"><use href="#i-chev-d"/></svg></label></div><div class="set-row note" id="fm-note">Unused for that long, the model is released and the next check waits ~1 s to reload.</div>
+    </div>
+  </div>
+</div></div>
+        <figcaption>Settings → AI model, opened on Change…. The pop-ups work: each choice shows the app's own note.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -1358,6 +1605,27 @@ footer .by { font-family: var(--hand); font-size: 16px; color: var(--blue); marg
     hopTimer = setTimeout(() => { stage.classList.remove("hop"); stage.dataset.mood = mood; }, 1400);
   });
 
+  // Settings pop-ups show the app's note for each choice.
+  $$("select[data-note-for]").forEach(sel => sel.addEventListener("change", () => {
+    $("#" + sel.dataset.noteFor).textContent = sel.selectedOptions[0].dataset.note;
+  }));
+  // The Practice card: pick, see right and wrong, Continue to try again.
+  const drill = $("#drill");
+  if (drill) {
+    const opts = $$(".opt", drill), cont = $(".cont", drill);
+    opts.forEach(o => o.addEventListener("click", () => {
+      if (drill.classList.contains("picked")) return;
+      drill.classList.add("picked");
+      o.classList.add("chosen");
+      opts.forEach(x => { if (x.dataset.ok === "1") x.classList.add("right"); else if (x === o) x.classList.add("wrong"); });
+      cont.hidden = false;
+    }));
+    cont.addEventListener("click", () => {
+      drill.classList.remove("picked");
+      opts.forEach(x => x.classList.remove("chosen", "right", "wrong"));
+      cont.hidden = true;
+    });
+  }
   // Example tabs above a panel: show the pane with the same index, in the panel and its caption.
   $$("[data-tabs]").forEach(fig => {
     const tabs = $$("[data-tab]", fig);
